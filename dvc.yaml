@@ -1,0 +1,2 @@
+# Pipeline stages are added in Sprint 1 (Module 3): ingest -> validate -> features -> split.
+stages: {}

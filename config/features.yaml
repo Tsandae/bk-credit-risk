@@ -1,0 +1,52 @@
+# Application-time feature whitelist and leakage blacklist (Module 1 Vision Document FO4, Charter clauses 4-7)
+target: loan_status
+good_status: ["Fully Paid", "Does not meet the credit policy. Status:Fully Paid"]
+bad_status: ["Charged Off", "Default", "Does not meet the credit policy. Status:Charged Off"]
+split_key: issue_d
+features:
+  - loan_amnt
+  - term
+  - emp_length
+  - home_ownership
+  - annual_inc
+  - verification_status
+  - purpose
+  - dti
+  - delinq_2yrs
+  - earliest_cr_line
+  - inq_last_6mths
+  - mths_since_last_delinq
+  - mths_since_last_record
+  - open_acc
+  - pub_rec
+  - revol_bal
+  - revol_util
+  - total_acc
+  - initial_list_status
+  - collections_12_mths_ex_med
+  - mths_since_last_major_derog
+  - acc_now_delinq
+  - tot_coll_amt
+  - tot_cur_bal
+  - total_rev_hi_lim
+benchmark_only: [grade, sub_grade, int_rate]
+monitor_only: [addr_state]
+exclude_identifiers: [id, member_id, url, emp_title, desc, title, zip_code, policy_code]
+leakage:
+  - pymnt_plan
+  - out_prncp
+  - out_prncp_inv
+  - total_pymnt
+  - total_pymnt_inv
+  - total_rec_prncp
+  - total_rec_int
+  - total_rec_late_fee
+  - recoveries
+  - collection_recovery_fee
+  - last_pymnt_d
+  - last_pymnt_amnt
+  - next_pymnt_d
+  - last_credit_pull_d
+  - funded_amnt
+  - funded_amnt_inv
+  - installment

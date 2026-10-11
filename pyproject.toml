@@ -1,0 +1,8 @@
+[project]
+name = "bk-credit-risk"
+version = "0.1.0"
+description = "Credit risk intelligence for Bank of Kigali (academic project)"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
