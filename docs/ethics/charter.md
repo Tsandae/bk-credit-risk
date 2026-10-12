@@ -1,3 +1,13 @@
 # Ethical AI Charter
 
-Copy the Ethical AI Charter from the Module 1 Vision Document here (seven clauses).
+Risk	Mitigation
+Model performs differently across groups	Monitor group performance and fairness measures.
+Good customers are incorrectly classified as high risk	Useb threshold/costanalysisandhumanreview.
+Modelbecomesthefinallendingdecision	Needcreditofficer approval.
+Variablesactasproxiesfor protectedcharacteristics	Excludehigh-riskfieldsandtestremainingvariablesforproxyeffects.
+LendingClubdatadoesnotrepresentBKcustomers	Clearlystatethelimitationandrequirelocalvalidationbeforeuse.
+Dataleakageproducesunrealisticresults	Useapplication-timevariablesandout-of-timetesting.
+Privacyor inappropriatedatause	Applydataminimization,accesscontrolsandprivacyreview.
+Regulatoryrequirementsaremissed	NeedCompliance,Legalandindependentmodelvalidation.
+SHAPexplanationsaretreatedas causes	ClearlystatethatSHAPshowsmodelassociations,not causation.
+
