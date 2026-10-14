@@ -1,6 +1,6 @@
 # BK Credit Risk Intelligence
 
-Credit risk early-warning and decision-support project for Bank of Kigali retail and digital lending (BAN6800 / Nexford University). Built on the Module 1 Vision Document and planned in the Module 2 Project Overview Report.
+Credit risk early-warning and decision-support project for Bank of Kigali retail and digital lending. Built on the Module 1 Vision Document and planned in the Module 2 Project Overview Report.
 
 **Data:** LendingClub loan data (Kaggle). It is US peer-to-peer lending data used as a proxy; it is **not** Bank of Kigali data. Raw data is never committed (see `.gitignore`); fetch it with the ingestion script in Sprint 1 and version it with DVC.
 
