@@ -18,3 +18,4 @@ streamlit
 kaggle
 pyyaml
 pytest
+faker
