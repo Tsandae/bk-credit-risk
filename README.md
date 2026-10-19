@@ -16,3 +16,36 @@ pytest
 
 ## Ethical AI Charter (summary)
 The model supports credit officers and never decides alone; no applicant is denied banking services solely because of a score; reasons are documented; fairness testing and independent validation precede any operational use. See `docs/ethics/charter.md`.
+
+## Module 3: Data pipeline 
+
+Reproducible, governed pipeline that turns the raw LendingClub `loan.csv` into the curated table used for Module 4 modelling.
+
+```
+loan.csv -> ingest -> clean -> privacy gate -> transform -> integrate -> validate (Great Expectations) -> bias audit -> publish
+```
+
+| Requirement | Where |
+|---|---|
+| Orchestration DAG (Prefect) | `flows/credit_risk_flow.py` |
+| Validation suite (Great Expectations, 23 checks) | `pipeline/validate.py` |
+| Unit tests (22, pytest) | `tests/module3/` |
+| Containerisation | `Dockerfile.pipeline` |
+| Bias detection (Fairlearn) | `pipeline/bias.py` |
+| Anonymisation (HMAC pseudonyms, PII scrub, k-anonymity k=5) | `pipeline/anonymize.py` |
+| Governance (access control, retention) | `governance/policy.yaml`, `pipeline/governance.py` |
+| Privacy audit log (hash-chained) | `pipeline/audit.py` -> `logs/privacy_audit.log` |
+
+Run from the repository root:
+
+```bash
+pip install -r requirements.txt faker        # or: pip install -r requirements-pipeline.txt
+# place the raw file at data/raw/loan.csv  (never commit it)
+export ANON_SALT="<long random secret>"      # Windows PowerShell: $env:ANON_SALT = "..."
+python -m flows.credit_risk_flow
+python scripts/make_report_images.py
+pytest tests/module3 -q
+```
+
+Outputs: `data/curated/loans_curated.parquet` and `reports/` (validation, bias, lineage, summary). The audit log is written to `logs/privacy_audit.log`.
+
