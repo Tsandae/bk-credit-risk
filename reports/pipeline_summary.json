@@ -1,0 +1,106 @@
+{
+  "anonymization": {
+    "columns_removed": [
+      "member_id",
+      "emp_title",
+      "title",
+      "desc",
+      "zip_code",
+      "id"
+    ],
+    "pseudonymised": [
+      "id -> loan_key (HMAC-SHA256)"
+    ],
+    "generalised": [
+      "zip_code -> zip3",
+      "annual_inc -> income_band (added)"
+    ],
+    "k_target": 5,
+    "k_before": 1,
+    "k_after": 5,
+    "rows_suppressed": 16,
+    "residual_pii_patterns": 0
+  },
+  "validation": {
+    "success": true,
+    "evaluated": 23,
+    "passed": 23,
+    "failed": 0
+  },
+  "bias": {
+    "groups_under_represented": [
+      {
+        "attribute": "home_ownership",
+        "group": "OTHER",
+        "share_after": 0.0007
+      },
+      {
+        "attribute": "region",
+        "group": "Other/Unknown",
+        "share_after": 0.0004
+      }
+    ],
+    "groups_shifted_by_processing": [
+      {
+        "attribute": "verification_status",
+        "group": "Source Verified",
+        "share_before": 0.3714,
+        "share_after": 0.298,
+        "shift_pp": -7.34
+      }
+    ],
+    "attributes_needing_review": [
+      "home_ownership",
+      "income_band",
+      "verification_status"
+    ],
+    "year_shift": [
+      {
+        "year": 2007,
+        "share_before": 0.0007,
+        "share_after": 0.0009
+      },
+      {
+        "year": 2008,
+        "share_before": 0.0027,
+        "share_after": 0.0059
+      },
+      {
+        "year": 2009,
+        "share_before": 0.006,
+        "share_after": 0.0177
+      },
+      {
+        "year": 2010,
+        "share_before": 0.0141,
+        "share_after": 0.0434
+      },
+      {
+        "year": 2011,
+        "share_before": 0.0245,
+        "share_after": 0.0742
+      },
+      {
+        "year": 2012,
+        "share_before": 0.0601,
+        "share_after": 0.1874
+      },
+      {
+        "year": 2013,
+        "share_before": 0.1519,
+        "share_after": 0.2754
+      },
+      {
+        "year": 2014,
+        "share_before": 0.2655,
+        "share_after": 0.279
+      },
+      {
+        "year": 2015,
+        "share_before": 0.4745,
+        "share_after": 0.116
+      }
+    ]
+  },
+  "audit_chain_intact": true
+}

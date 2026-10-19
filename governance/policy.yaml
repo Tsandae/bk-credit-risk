@@ -1,0 +1,46 @@
+# Data Governance Framework — Bank of Kigali credit-risk project (AIA6550 / BAN6800 capstone)
+# Enforced in code by pipeline/governance.py; every decision is written to the privacy audit log.
+
+classification:
+  raw:      {level: Restricted,   contains_pii: true,  description: "Source file as received (loan.csv)"}
+  staging:  {level: Confidential, contains_pii: false, description: "Cleaned and anonymised intermediate data"}
+  curated:  {level: Internal,     contains_pii: false, description: "Model-ready dataset used in Module 4"}
+  reports:  {level: Internal,     contains_pii: false, description: "Validation, bias and lineage reports"}
+
+# Least privilege: role -> allowed actions per zone. Anything not listed is denied.
+access_control:
+  raw:
+    data_engineer: [read, write]
+    auditor: [read_metadata]
+  staging:
+    data_engineer: [read, write]
+  curated:
+    data_engineer: [read, write]
+    model_developer: [read]
+    analyst: [read]
+    auditor: [read]
+  reports:
+    data_engineer: [read, write]
+    model_developer: [read]
+    analyst: [read]
+    auditor: [read]
+
+# Retention (days). Files older than this are deleted by enforce_retention() and the deletion is logged.
+retention_days:
+  raw: 90
+  staging: 30
+  curated: 365
+  reports: 365
+  audit_log: 2555   # 7 years, aligned with financial-services record keeping
+
+roles:
+  data_engineer: "Builds and runs the pipeline; only role with raw-zone access"
+  model_developer: "Reads curated data for model training (Module 4)"
+  analyst: "Reads curated data for dashboards (Module 5)"
+  auditor: "Reads the audit log, reports and raw-zone metadata (never raw rows)"
+
+usage_policy:
+  - "Data is used only for credit-risk model development and fairness assessment."
+  - "No re-identification attempts; pseudonymisation salt is stored outside the repository (ANON_SALT)."
+  - "Any new column must be added to the data dictionary and re-validated before use."
+  - "Bias-audit flags must be reviewed and documented before a model is trained on the data."

@@ -1,0 +1,28 @@
+# Module 3 data-pipeline container (separate from the Streamlit app Dockerfile).
+# Build:  docker build -f Dockerfile.pipeline -t bk-credit-pipeline .
+# Run:    docker run --rm -e ANON_SALT=<secret> -v "$PWD/data:/app/data" -v "$PWD/reports:/app/reports" -v "$PWD/logs:/app/logs" bk-credit-pipeline
+# Tests:  docker run --rm bk-credit-pipeline pytest tests/module3 -q
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY requirements-pipeline.txt .
+RUN pip install --no-cache-dir -r requirements-pipeline.txt
+
+COPY pyproject.toml .
+COPY pipeline/ pipeline/
+COPY flows/ flows/
+COPY governance/ governance/
+COPY scripts/ scripts/
+COPY tests/module3/ tests/module3/
+COPY data/reference/ data/reference/
+
+# Non-root user; ANON_SALT must be supplied at runtime and is never baked into the image.
+RUN useradd --create-home appuser && mkdir -p data/raw data/staging data/curated reports logs \
+    && chown -R appuser:appuser /app
+USER appuser
+
+CMD ["python", "-m", "flows.credit_risk_flow"]

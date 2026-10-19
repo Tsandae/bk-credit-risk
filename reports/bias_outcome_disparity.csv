@@ -1,0 +1,17 @@
+attribute,group,n,default_rate,attr_gap,attr_rate_ratio,review
+home_ownership,MORTGAGE,130359,0.1948,0.06,0.754,True
+home_ownership,OTHER,185,0.1838,0.06,0.754,True
+home_ownership,OWN,23305,0.2294,0.06,0.754,True
+home_ownership,RENT,111925,0.2437,0.06,0.754,True
+region,Midwest,41926,0.2231,0.0206,0.909,False
+region,Northeast,54550,0.2254,0.0206,0.909,False
+region,Other/Unknown,110,0.2091,0.0206,0.909,False
+region,South,91017,0.2238,0.0206,0.909,False
+region,West,78171,0.2048,0.0206,0.909,False
+income_band,120k+,24176,0.1605,0.1123,0.588,True
+income_band,40-80k,135334,0.2243,0.1123,0.588,True
+income_band,80-120k,54072,0.1772,0.1123,0.588,True
+income_band,<40k,52192,0.2728,0.1123,0.588,True
+verification_status,Not Verified,88856,0.1689,0.078,0.684,True
+verification_status,Source Verified,79198,0.239,0.078,0.684,True
+verification_status,Verified,97720,0.2469,0.078,0.684,True

@@ -1,0 +1,111 @@
+[
+  {
+    "step": "INGEST",
+    "dataset": "raw",
+    "rows_in": null,
+    "rows_out": 887379,
+    "cols_in": 0,
+    "cols_out": 31,
+    "cols_added": [
+      "id",
+      "member_id",
+      "loan_amnt",
+      "funded_amnt",
+      "term",
+      "int_rate",
+      "installment",
+      "grade",
+      "sub_grade",
+      "emp_title",
+      "emp_length",
+      "home_ownership",
+      "annual_inc",
+      "verification_status",
+      "issue_d",
+      "loan_status",
+      "desc",
+      "purpose",
+      "title",
+      "zip_code",
+      "addr_state",
+      "dti",
+      "delinq_2yrs",
+      "earliest_cr_line",
+      "inq_last_6mths",
+      "open_acc",
+      "pub_rec",
+      "revol_bal",
+      "revol_util",
+      "total_acc",
+      "application_type"
+    ],
+    "cols_dropped": []
+  },
+  {
+    "step": "CLEAN",
+    "dataset": "staging",
+    "rows_in": 887379,
+    "rows_out": 887379,
+    "cols_in": 31,
+    "cols_out": 32,
+    "cols_added": [
+      "emp_length_missing"
+    ],
+    "cols_dropped": []
+  },
+  {
+    "step": "ANONYMIZE",
+    "dataset": "staging",
+    "rows_in": 887379,
+    "rows_out": 887363,
+    "cols_in": 32,
+    "cols_out": 29,
+    "cols_added": [
+      "loan_key",
+      "zip3",
+      "income_band"
+    ],
+    "cols_dropped": [
+      "id",
+      "member_id",
+      "emp_title",
+      "desc",
+      "title",
+      "zip_code"
+    ]
+  },
+  {
+    "step": "TRANSFORM",
+    "dataset": "staging",
+    "rows_in": 887363,
+    "rows_out": 265774,
+    "cols_in": 29,
+    "cols_out": 33,
+    "cols_added": [
+      "default",
+      "loan_to_income",
+      "installment_to_income",
+      "log_annual_inc",
+      "credit_history_years",
+      "issue_year",
+      "grade_num"
+    ],
+    "cols_dropped": [
+      "issue_d",
+      "loan_status",
+      "earliest_cr_line"
+    ]
+  },
+  {
+    "step": "INTEGRATE",
+    "dataset": "curated",
+    "rows_in": 265774,
+    "rows_out": 265774,
+    "cols_in": 33,
+    "cols_out": 34,
+    "cols_added": [
+      "region"
+    ],
+    "cols_dropped": []
+  }
+]

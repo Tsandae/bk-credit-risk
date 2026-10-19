@@ -1,0 +1,17 @@
+attribute,group,share_before,share_after,shift_pp,under_represented,shifted
+home_ownership,MORTGAGE,0.4999,0.4905,-0.94,False,False
+home_ownership,OTHER,0.0003,0.0007,0.04,True,False
+home_ownership,OWN,0.0986,0.0877,-1.09,False,False
+home_ownership,RENT,0.4013,0.4211,1.98,False,False
+region,Midwest,0.1747,0.1578,-1.69,False,False
+region,Northeast,0.2066,0.2052,-0.14,False,False
+region,Other/Unknown,0.0002,0.0004,0.03,True,False
+region,South,0.3548,0.3425,-1.24,False,False
+region,West,0.2637,0.2941,3.04,False,False
+income_band,120k+,0.1041,0.091,-1.31,False,False
+income_band,40-80k,0.5005,0.5092,0.87,False,False
+income_band,80-120k,0.2111,0.2035,-0.77,False,False
+income_band,<40k,0.1843,0.1964,1.21,False,False
+verification_status,Not Verified,0.3006,0.3343,3.37,False,False
+verification_status,Source Verified,0.3714,0.298,-7.34,False,True
+verification_status,Verified,0.328,0.3677,3.97,False,False

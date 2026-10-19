@@ -1,0 +1,303 @@
+{
+  "suite": "credit_risk_curated_suite",
+  "success": true,
+  "evaluated": 23,
+  "passed": 23,
+  "failed": 0,
+  "results": [
+    {
+      "expectation": "expect_table_row_count_to_be_between",
+      "column": "(table)",
+      "params": {
+        "min_value": 5000
+      },
+      "success": true,
+      "unexpected_percent": null,
+      "observed_value": 265774
+    },
+    {
+      "expectation": "expect_table_columns_to_match_set",
+      "column": "(table)",
+      "params": {
+        "column_set": [
+          "loan_key",
+          "loan_amnt",
+          "term",
+          "int_rate",
+          "installment",
+          "grade",
+          "emp_length",
+          "home_ownership",
+          "annual_inc",
+          "verification_status",
+          "purpose",
+          "addr_state",
+          "dti",
+          "revol_util",
+          "default",
+          "loan_to_income",
+          "credit_history_years",
+          "region"
+        ],
+        "exact_match": false
+      },
+      "success": true,
+      "unexpected_percent": null,
+      "observed_value": [
+        "addr_state",
+        "annual_inc",
+        "application_type",
+        "credit_history_years",
+        "default",
+        "delinq_2yrs",
+        "dti",
+        "emp_length",
+        "emp_length_missing",
+        "funded_amnt",
+        "grade",
+        "grade_num",
+        "home_ownership",
+        "income_band",
+        "inq_last_6mths",
+        "installment",
+        "installment_to_income",
+        "int_rate",
+        "issue_year",
+        "loan_amnt",
+        "loan_key",
+        "loan_to_income",
+        "log_annual_inc",
+        "open_acc",
+        "pub_rec",
+        "purpose",
+        "region",
+        "revol_bal",
+        "revol_util",
+        "sub_grade",
+        "term",
+        "total_acc",
+        "verification_status",
+        "zip3"
+      ]
+    },
+    {
+      "expectation": "expect_column_values_to_be_unique",
+      "column": "loan_key",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "loan_key",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "loan_amnt",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "column": "loan_amnt",
+      "params": {
+        "min_value": 500.0,
+        "max_value": 40000.0
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "annual_inc",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "column": "annual_inc",
+      "params": {
+        "min_value": 1.0,
+        "max_value": 10000000.0
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "int_rate",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "column": "int_rate",
+      "params": {
+        "min_value": 5.0,
+        "max_value": 31.0
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "dti",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "column": "dti",
+      "params": {
+        "min_value": 0.0,
+        "max_value": 100.0
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "grade",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_in_set",
+      "column": "grade",
+      "params": {
+        "value_set": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ]
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "default",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_in_set",
+      "column": "default",
+      "params": {
+        "value_set": [
+          0,
+          1
+        ]
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_mean_to_be_between",
+      "column": "default",
+      "params": {
+        "min_value": 0.03,
+        "max_value": 0.45
+      },
+      "success": true,
+      "unexpected_percent": null,
+      "observed_value": 0.21844499461948874
+    },
+    {
+      "expectation": "expect_column_values_to_not_be_null",
+      "column": "region",
+      "params": {},
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "column": "revol_util",
+      "params": {
+        "min_value": 0.0,
+        "max_value": 150.0
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "column": "emp_length",
+      "params": {
+        "min_value": 0.0,
+        "max_value": 10.0
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_between",
+      "column": "credit_history_years",
+      "params": {
+        "min_value": 0.0,
+        "max_value": 80.0
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_in_set",
+      "column": "term",
+      "params": {
+        "value_set": [
+          36,
+          60
+        ]
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    },
+    {
+      "expectation": "expect_column_values_to_be_in_set",
+      "column": "home_ownership",
+      "params": {
+        "value_set": [
+          "MORTGAGE",
+          "RENT",
+          "OWN",
+          "OTHER"
+        ]
+      },
+      "success": true,
+      "unexpected_percent": 0.0,
+      "observed_value": null
+    }
+  ]
+}
