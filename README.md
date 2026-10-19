@@ -41,7 +41,7 @@ Run from the repository root:
 ```bash
 pip install -r requirements.txt faker        # or: pip install -r requirements-pipeline.txt
 # place the raw file at data/raw/loan.csv  (never commit it)
-export ANON_SALT="<long random secret>"      # Windows PowerShell: $env:ANON_SALT = "..."
+export ANON_SALT="<Assignment module three>"      # Windows PowerShell: $env:ANON_SALT = "..."
 python -m flows.credit_risk_flow
 python scripts/make_report_images.py
 pytest tests/module3 -q
