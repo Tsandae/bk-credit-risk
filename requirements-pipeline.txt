@@ -8,4 +8,3 @@ fairlearn>=0.10
 faker>=24
 matplotlib>=3.8
 pytest>=8
-faker
