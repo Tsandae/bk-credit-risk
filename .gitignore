@@ -10,3 +10,8 @@ __pycache__/
 mlruns/
 .venv/
 !project/tickets.csv
+.venv/
+data/raw/loan.csv
+data/staging/
+data/curated/
+logs/
