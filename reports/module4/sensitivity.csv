@@ -1,0 +1,7 @@
+input,scenario,change_pp
+annual_inc,income -10%,1.1876
+annual_inc,income +10%,-1.1155
+int_rate,interest rate +10%,2.2011
+dti,debt-to-income +10%,0.3648
+loan_amnt,loan amount +10%,0.5228
+revol_util,credit use +10%,0.1954

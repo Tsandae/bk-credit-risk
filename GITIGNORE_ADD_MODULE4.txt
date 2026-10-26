@@ -1,0 +1,4 @@
+# Module 4: local MLflow store (keep screenshots + reports/module4/mlflow_runs.csv instead)
+mlflow.db
+mlruns/
+cv_*.csv

@@ -1,0 +1,4 @@
+tier,n,predicted,actual,relative_error
+low,15373,0.1439,0.149,-0.0337
+medium,8835,0.3118,0.308,0.0125
+high,6627,0.4799,0.4285,0.1197

@@ -1,0 +1,4 @@
+model,val_roc_auc,test_roc_auc,test_ks,test_capture_top20,test_precision,test_recall,test_f1,test_accuracy,param_C,param_min_samples_leaf,param_max_depth,param_num_leaves,param_n_estimators,param_min_child_samples,param_learning_rate
+logistic_regression,0.7011,0.6884,0.2761,0.3445,0.4341,0.3579,0.3923,0.7177,0.03,,,,,,
+random_forest,0.6993,0.6824,0.2722,0.337,0.4243,0.3676,0.3939,0.712,,100.0,12.0,,,,
+lightgbm,0.702,0.6872,0.2808,0.3417,0.4285,0.3617,0.3923,0.7147,,,,15.0,250.0,100.0,0.03

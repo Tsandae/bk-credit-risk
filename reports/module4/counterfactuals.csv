@@ -1,0 +1,13 @@
+applicant,scenario,term,loan_amnt,installment,default_probability,tier
+9372,as applied,60,21700.0,565.19,0.442,high
+9372,term 60 -> 36 months,36,21700.0,797.5218,0.3251,medium
+9372,amount -10%,60,19530.0,508.6629,0.4268,high
+9372,amount -20%,60,17360.0,452.1448,0.4004,high
+11875,as applied,60,20800.0,537.74,0.4901,high
+11875,term 60 -> 36 months,36,20800.0,760.7636,0.3834,high
+11875,amount -10%,60,18720.0,483.9605,0.4606,high
+11875,amount -20%,60,16640.0,430.1871,0.442,high
+7412,as applied,60,35000.0,911.59,0.5131,high
+7412,term 60 -> 36 months,36,35000.0,1286.3254,0.3832,medium
+7412,amount -10%,60,31500.0,820.4241,0.497,high
+7412,amount -20%,60,28000.0,729.2658,0.4901,high
