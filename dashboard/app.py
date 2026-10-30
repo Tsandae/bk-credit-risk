@@ -1,5 +1,5 @@
 """BK Credit-Risk Stakeholder Dashboard (Module 5).
-
+ 
 Run locally:   streamlit run dashboard/app.py
 Deploy:        Streamlit Community Cloud, main file path = dashboard/app.py
 This dashboard explains a decision-SUPPORT model built on US LendingClub data (a stand-in for Bank of Kigali data).
@@ -7,52 +7,60 @@ It does not make or recommend credit decisions.
 """
 import sys
 from pathlib import Path
-
+ 
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-
+ 
 ROOT = Path(__file__).resolve().parents[1]
 for p in (ROOT, Path(__file__).resolve().parent):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))
-
+ 
 import helpers as H  # noqa: E402
-
+ 
 st.set_page_config(page_title="BK Credit-Risk Insights", page_icon="📊", layout="wide")
-
+ 
 st.markdown("""
 <style>
+/* Always show the light design, even if the viewer's browser is in dark mode */
+:root {color-scheme: light;}
+.stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {background:#ffffff !important;}
+[data-testid="stSidebar"] {background:#eef3f8 !important;}
+.stApp, .stApp p, .stApp li, .stApp label, .stApp span, .stApp h1, .stApp h2, .stApp h3, .stApp h4,
+[data-testid="stMetricValue"], [data-testid="stMetricLabel"], [data-testid="stCaptionContainer"] {color:#0b2545 !important;}
+.note, .note *, .warn, .warn * {color:#0b2545 !important;}
+.tier {color:#ffffff !important;}
 .block-container {padding-top: 2rem; max-width: 1200px;}
 .note {background:#eef3f8; border-left:4px solid #2a78d6; padding:.7rem 1rem; border-radius:4px; margin:.5rem 0 1rem 0;}
 .warn {background:#fff4ec; border-left:4px solid #eb6834; padding:.7rem 1rem; border-radius:4px; margin:.5rem 0 1rem 0;}
 .tier {display:inline-block; padding:.25rem .8rem; border-radius:1rem; font-weight:700; color:white;}
 </style>""", unsafe_allow_html=True)
-
+ 
 TIER_COLOR = {"low": H.BLUE, "medium": "#8d99aa", "high": H.ORANGE}
 TIER_LABEL = {"low": "Lower-risk group", "medium": "Medium-risk group", "high": "Higher-risk group"}
-
-
+ 
+ 
 def style(fig, height=380, legend=True):
-    fig.update_layout(height=height, margin=dict(l=10, r=10, t=50, b=60), plot_bgcolor="white", paper_bgcolor="white",
+    fig.update_layout(height=height, margin=dict(l=10, r=10, t=70, b=60), plot_bgcolor="white", paper_bgcolor="white",
                       font=dict(color=H.NAVY, size=13), showlegend=legend,
                       legend=dict(orientation="h", yanchor="top", y=-0.12, x=0), title=dict(x=0, xanchor="left", font=dict(size=15)))
     fig.update_xaxes(showgrid=False, linecolor="#c8d0da")
-    fig.update_yaxes(gridcolor="#e6ebf1", zeroline=False)
+    fig.update_yaxes(gridcolor="#e6ebf1", zeroline=False, automargin=True)
     return fig
-
-
+ 
+ 
 @st.cache_data
 def results():
     return H.load_results()
-
-
+ 
+ 
 @st.cache_data
 def scored():
     return H.load_scored()
-
-
+ 
+ 
 @st.cache_resource
 def load_model():
     """Model + SHAP explainer. Returns (model, explainer, error_message)."""
@@ -67,12 +75,12 @@ def load_model():
         return model, Explainer(model), None
     except Exception as e:
         return model, None, f"explanations unavailable ({type(e).__name__})"
-
-
+ 
+ 
 R = results()
 MODEL = R["selected_model"]
 T = R["models"][MODEL]["test"]
-
+ 
 # ------------------------------------------------------------------ sidebar
 st.sidebar.title("BK Credit-Risk Insights")
 st.sidebar.caption("Decision-support model for credit review. Built for a stakeholder audience (AIA6550, Module 5).")
@@ -81,7 +89,7 @@ page = st.sidebar.radio("Explore", ["1. Overview", "2. Score an applicant & what
 st.sidebar.markdown("---")
 st.sidebar.info("**Data:** US LendingClub loans (2007-2015), used as a stand-in for Bank of Kigali data. "
                 "Results show how the method works; they are not BK results.")
-
+ 
 # ------------------------------------------------------------------ 1. overview
 if page.startswith("1"):
     st.title("How well does the credit-risk model separate safer from riskier loans?")
@@ -92,7 +100,7 @@ if page.startswith("1"):
     c[1].metric("Test loans (2015)", f"{R['rows']['test']:,}")
     c[2].metric("Defaults in the top-20% riskiest", f"{T['capture_top20']:.1%}", help="Share of all loans that later defaulted, found in the 20% of applications scored riskiest. Random scoring would find 20%.")
     c[3].metric("Ranking quality (AUC)", f"{T['roc_auc']:.3f}", help="0.5 = no better than chance, 1.0 = perfect.")
-
+ 
     tiers = pd.DataFrame(R["tier_calibration"])
     tiers["label"] = tiers["tier"].map({"low": "Lower risk", "medium": "Medium risk", "high": "Higher risk"})
     left, right = st.columns([5, 4])
@@ -104,7 +112,7 @@ if page.startswith("1"):
                     text=[f"{v:.1f}%" for v in tiers["predicted"] * 100], textposition="outside")
         fig.update_layout(barmode="group", title="Share of loans that defaulted, by risk group (2015 test loans)",
                           yaxis_title="% of loans", yaxis_range=[0, 60])
-        st.plotly_chart(style(fig), use_container_width=True)
+        st.plotly_chart(style(fig), use_container_width=True, theme=None)
         st.caption(f"Loans in the higher-risk group defaulted about {tiers.loc[2, 'actual'] / tiers.loc[0, 'actual']:.1f} times as often as loans in the lower-risk group. "
                    "The model slightly over-states risk in the highest group.")
     with right:
@@ -118,7 +126,7 @@ if page.startswith("1"):
         md = "| Goal | Result | Status |\n|---|---|---|\n" + "\n".join(f"| {g} | {r} | {'✅ Met' if ok else '⚠️ Not met'} |" for g, r, ok in goals)
         st.markdown(md)
         st.caption("A cost-saving goal (10% lower expected loss) cannot be assessed without Bank of Kigali cost data.")
-
+ 
 # ------------------------------------------------------------------ 2. what-if
 elif page.startswith("2"):
     st.title("Score an application and test a what-if")
@@ -169,7 +177,7 @@ elif page.startswith("2"):
     frame = H.build_frame(model, base)
     res = H.score(model, frame)
     bands = H.tier_bands(model)
-
+ 
     st.markdown("---")
     r1, r2 = st.columns([2, 3])
     with r1:
@@ -189,10 +197,10 @@ elif page.startswith("2"):
                 x=d["push"], y=[f"{l}: {H.fmt_value(f, v)}" for l, f, v in zip(d["label"], d["feature"], d["value"])], orientation="h",
                 marker_color=[H.ORANGE if x > 0 else H.BLUE for x in d["push"]],
                 hovertext=d["direction"], hoverinfo="text+x"))
-            fig.update_layout(title="What moves this estimate most (orange = pushes risk up, blue = pushes risk down)",
-                              xaxis_title="Relative size of push (direction and size only)")
-            st.plotly_chart(style(fig, 330, False), use_container_width=True)
-
+            fig.update_layout(title="What moves this estimate most<br><sup>orange = pushes risk up, blue = pushes risk down</sup>",
+                              xaxis_title="Relative push (direction and size)")
+            st.plotly_chart(style(fig, 330, False), use_container_width=True, theme=None)
+ 
     st.markdown("### What-if: change one thing and compare")
     w1, w2, w3, w4 = st.columns(4)
     new_term = w1.selectbox("Loan term", [36, 60], index=[36, 60].index(term), key=f"wterm{k}")
@@ -212,7 +220,7 @@ elif page.startswith("2"):
     if new_term != term and new_term < term:
         st.markdown('<div class="warn">A shorter term lowers the estimated risk but raises the monthly payment. Whether the applicant can afford it is a separate question this model does not answer.</div>', unsafe_allow_html=True)
     st.caption("What-if results show how the model responds to changes. They are not offers, advice, or predictions about what an applicant will actually be offered.")
-
+ 
 # ------------------------------------------------------------------ 3. drivers
 elif page.startswith("3"):
     st.title("What drives the model's predictions?")
@@ -223,7 +231,7 @@ elif page.startswith("3"):
                            text=[f"{v:.2f}" for v in imp["mean_abs_shap"]], textposition="outside"))
     fig.update_layout(title="Ten biggest influences on predictions (average size of influence)", xaxis_title="Average influence on the risk estimate")
     fig.update_xaxes(range=[0, 0.55])
-    st.plotly_chart(style(fig, 440, False), use_container_width=True)
+    st.plotly_chart(style(fig, 440, False), use_container_width=True, theme=None)
     a, b = st.columns(2)
     with a:
         st.subheader("Raises estimated risk")
@@ -242,7 +250,7 @@ elif page.startswith("3"):
     sens = pd.DataFrame(R["sensitivity"])
     sens["Change in estimated risk (points)"] = sens["change_pp"].round(1)
     st.dataframe(sens.rename(columns={"scenario": "Scenario"})[["Scenario", "Change in estimated risk (points)"]], hide_index=True, use_container_width=True)
-
+ 
 # ------------------------------------------------------------------ 4. ethical compliance
 elif page.startswith("4"):
     st.title("Ethical compliance: is the model treating groups comparably?")
@@ -258,7 +266,7 @@ elif page.startswith("4"):
         share = c2.slider("Share of applicants flagged for review", 10, 50, 21, 1, format="%d%%") / 100
         thr = float(np.quantile(S["raw"], 1 - share))
     tab, sm = H.fairness_view(S, attr, thr)
-
+ 
     k = st.columns(3)
     ok = lambda b: "✅ Within limit" if b else "⚠️ Outside limit"  # noqa: E731
     k[0].metric("Approval ratio (lowest ÷ highest group)", f"{sm['approval_ratio']:.2f}")
@@ -268,7 +276,7 @@ elif page.startswith("4"):
     k[2].metric("Gap in repaying borrowers wrongly flagged", f"{sm['fpr_gap_pp']:.1f} pts")
     k[2].markdown(f"**{ok(sm['fpr_ok'])}** (maximum 5 points)")
     st.caption(f"{sm['flagged_share']:.1%} of 2015 test applicants flagged at this setting.")
-
+ 
     inc = tab[tab.included]
     fig = go.Figure()
     fig.add_bar(x=inc["group"], y=inc["approval_rate"] * 100, name="Approved (not flagged)", marker_color=H.BLUE,
@@ -294,7 +302,7 @@ elif page.startswith("4"):
         st.dataframe(show[["group", "n", "approved", "default_rate", "flagged_defaulters", "flagged_repayers"]]
                      .rename(columns={"group": "Group", "n": "Loans", "approved": "Approved %", "default_rate": "Defaulted %",
                                       "flagged_defaulters": "Defaulters flagged %", "flagged_repayers": "Repayers flagged %"}), hide_index=True, use_container_width=True)
-
+ 
     st.markdown("---")
     st.subheader("Bias mitigation: before and after group-specific cut-offs")
     rows = []
@@ -312,7 +320,7 @@ elif page.startswith("4"):
                    text=sub["Defaulters-flagged gap (pts)"], textposition="outside")
     fb.add_hline(y=5, line_dash="dash", line_color=H.ORANGE, annotation_text="Limit: 5 points", annotation_position="top left", layer="below")
     fb.update_layout(barmode="group", title="Gap in defaulters correctly flagged, between groups", yaxis_title="Percentage points", yaxis_range=[0, 34])
-    st.plotly_chart(style(fb, 360), use_container_width=True)
+    st.plotly_chart(style(fb, 360), use_container_width=True, theme=None)
     st.dataframe(mt, hide_index=True, use_container_width=True)
     base = R["models"][MODEL]["test"]
     cost = pd.DataFrame([{"Setting": "Single cut-off (project setting)", "Applicants flagged": f"{base['flagged_share']:.0%}", "Flags that were real defaults": f"{base['precision']:.0%}", "Correct overall": f"{base['accuracy']:.0%}"}] +
@@ -320,13 +328,13 @@ elif page.startswith("4"):
     st.markdown("**What it costs:** narrowing the gaps flags far more applicants and makes each flag less accurate.")
     st.dataframe(cost, hide_index=True, use_container_width=True)
     st.markdown('<div class="warn">Group-specific cut-offs also raise policy and legal questions. This dashboard reports the trade-off; it does not decide it.</div>', unsafe_allow_html=True)
-
+ 
     st.subheader("Is risk over- or under-stated for any group?")
     cal = [{"Group type": H.GROUP_LABELS[a_], "Group": r["group"], "Loans": r["n"], "Model expected": f"{r['predicted']:.1%}", "Actually defaulted": f"{r['actual']:.1%}",
             "Difference": f"{r['relative_error'] * 100:+.1f}%"} for a_, rows_ in R["group_calibration"].items() for r in rows_]
     st.dataframe(pd.DataFrame(cal), hide_index=True, use_container_width=True)
     st.caption("A positive difference means the model expects more defaults than actually happened for that group.")
-
+ 
 # ------------------------------------------------------------------ 5. limits
 else:
     st.title("Limits and transparency statement")
