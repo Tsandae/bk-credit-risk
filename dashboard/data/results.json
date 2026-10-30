@@ -1,0 +1,1119 @@
+{
+  "bias_facts": {
+    "income_quartile_default_full": {
+      "Q1 (lowest)": 0.2683,
+      "Q2": 0.2359,
+      "Q3": 0.2031,
+      "Q4 (highest)": 0.1701
+    },
+    "income_quartile_default_test": {
+      "Q1 (lowest)": 0.3166,
+      "Q2": 0.2661,
+      "Q3": 0.2394,
+      "Q4 (highest)": 0.2095
+    },
+    "region_default_full": {
+      "Midwest": 0.2231,
+      "Northeast": 0.2254,
+      "Other/Unknown": 0.2091,
+      "South": 0.2238,
+      "West": 0.2048
+    },
+    "home_ownership_counts_full": {
+      "MORTGAGE": 130359,
+      "RENT": 111925,
+      "OWN": 23305,
+      "OTHER": 185
+    },
+    "default_rate_by_year": {
+      "2007": 0.1793,
+      "2008": 0.1582,
+      "2009": 0.126,
+      "2010": 0.1292,
+      "2011": 0.1652,
+      "2012": 0.1673,
+      "2013": 0.2295,
+      "2014": 0.2622,
+      "2015": 0.2546
+    },
+    "columns_in_curated_file": 34
+  },
+  "generated": "2026-10-26T10:18:26",
+  "demo_data": false,
+  "data_source": "data/curated/loans_curated.parquet",
+  "rows": {
+    "total": 265774,
+    "train": 160785,
+    "validation": 74154,
+    "test": 30835
+  },
+  "default_rate": {
+    "overall": 0.21844499461948874,
+    "train": 0.1913424759772367,
+    "validation": 0.26217061790328233,
+    "test": 0.2546132641478839
+  },
+  "models": {
+    "logistic_regression": {
+      "best_params": {
+        "C": 0.03
+      },
+      "cv_auc": 0.7093940654104397,
+      "validation": {
+        "n": 74154,
+        "default_rate": 0.26217061790328233,
+        "roc_auc": 0.7010849097987957,
+        "ks": 0.2951695914556297,
+        "capture_top20": 0.359240779795278,
+        "flagged_share": 0.20000269708984006,
+        "precision": 0.4709055357022453,
+        "recall": 0.359240779795278,
+        "f1": 0.40756302521008403,
+        "accuracy": 0.7261914394368476,
+        "tp": 6984,
+        "fp": 7847,
+        "fn": 12457,
+        "tn": 46866,
+        "defaulters": 19441,
+        "brier": 0.17437469680968018
+      },
+      "test": {
+        "n": 30835,
+        "default_rate": 0.2546132641478839,
+        "roc_auc": 0.6883933490551462,
+        "ks": 0.2760648167667535,
+        "capture_top20": 0.34454209654821044,
+        "flagged_share": 0.20992378790335658,
+        "precision": 0.4341109222926,
+        "recall": 0.3579161890205069,
+        "f1": 0.3923485060039095,
+        "accuracy": 0.717723366304524,
+        "tp": 2810,
+        "fp": 3663,
+        "fn": 5041,
+        "tn": 19321,
+        "defaulters": 7851,
+        "brier": 0.17477577653646703
+      }
+    },
+    "random_forest": {
+      "best_params": {
+        "min_samples_leaf": 100,
+        "max_depth": 12
+      },
+      "cv_auc": 0.7051303443794671,
+      "validation": {
+        "n": 74154,
+        "default_rate": 0.26217061790328233,
+        "roc_auc": 0.699290675447987,
+        "ks": 0.2936277376634682,
+        "capture_top20": 0.3544570752533306,
+        "flagged_share": 0.20000269708984006,
+        "precision": 0.4646348863866226,
+        "recall": 0.3544570752533306,
+        "f1": 0.4021358543417367,
+        "accuracy": 0.7236831458855895,
+        "tp": 6891,
+        "fp": 7940,
+        "fn": 12550,
+        "tn": 46773,
+        "defaulters": 19441,
+        "brier": 0.1747719004255505
+      },
+      "test": {
+        "n": 30835,
+        "default_rate": 0.2546132641478839,
+        "roc_auc": 0.6823545305594454,
+        "ks": 0.2721615293685831,
+        "capture_top20": 0.33702713030187237,
+        "flagged_share": 0.2205610507540133,
+        "precision": 0.4243493603881782,
+        "recall": 0.3675964845242644,
+        "f1": 0.3939393939393939,
+        "accuracy": 0.7120155667261229,
+        "tp": 2886,
+        "fp": 3915,
+        "fn": 4965,
+        "tn": 19069,
+        "defaulters": 7851,
+        "brier": 0.17631058180891312
+      }
+    },
+    "lightgbm": {
+      "best_params": {
+        "num_leaves": 15,
+        "n_estimators": 250,
+        "min_child_samples": 100,
+        "learning_rate": 0.03
+      },
+      "cv_auc": 0.7071363006281134,
+      "validation": {
+        "n": 74154,
+        "default_rate": 0.26217061790328233,
+        "roc_auc": 0.7019953360152485,
+        "ks": 0.29720100623965434,
+        "capture_top20": 0.35939509284501825,
+        "flagged_share": 0.20000269708984006,
+        "precision": 0.4711078147124267,
+        "recall": 0.35939509284501825,
+        "f1": 0.40773809523809523,
+        "accuracy": 0.7262723521320495,
+        "tp": 6987,
+        "fp": 7844,
+        "fn": 12454,
+        "tn": 46869,
+        "defaulters": 19441,
+        "brier": 0.17417040916887794
+      },
+      "test": {
+        "n": 30835,
+        "default_rate": 0.2546132641478839,
+        "roc_auc": 0.6871759526311559,
+        "ks": 0.2808128157734889,
+        "capture_top20": 0.34173990574449115,
+        "flagged_share": 0.21491811253445758,
+        "precision": 0.4285498717368342,
+        "recall": 0.36173735829830594,
+        "f1": 0.3923193811299903,
+        "accuracy": 0.7146748824387871,
+        "tp": 2840,
+        "fp": 3787,
+        "fn": 5011,
+        "tn": 19197,
+        "defaulters": 7851,
+        "brier": 0.17523416484427368
+      }
+    }
+  },
+  "selected_model": "lightgbm",
+  "selection_rule": "lightgbm is the Module 2 main model; kept unless its 2014 validation AUC is more than 0.005 below the best model. Validation AUCs: logistic_regression 0.7011, random_forest 0.6993, lightgbm 0.7020",
+  "baseline_test": {
+    "n": 30835,
+    "default_rate": 0.2546132641478839,
+    "roc_auc": 0.5,
+    "ks": 0.0,
+    "capture_top20": 0.2,
+    "flagged_share": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "accuracy": 0.7453867358521161
+  },
+  "tier_calibration": [
+    {
+      "tier": "low",
+      "n": 15373,
+      "predicted": 0.14394597333148504,
+      "actual": 0.14896246666233007,
+      "relative_error": -0.033676223569904185
+    },
+    {
+      "tier": "medium",
+      "n": 8835,
+      "predicted": 0.31183293544442947,
+      "actual": 0.30797962648556876,
+      "relative_error": 0.012511570985495934
+    },
+    {
+      "tier": "high",
+      "n": 6627,
+      "predicted": 0.4798566806422045,
+      "actual": 0.4285498717368342,
+      "relative_error": 0.11972190937179183
+    }
+  ],
+  "decile_calibration": [
+    {
+      "decile": 1,
+      "n": 3084,
+      "predicted": 0.05669801218234666,
+      "actual": 0.0651750972762646,
+      "relative_error": -0.13006632054548717
+    },
+    {
+      "decile": 2,
+      "n": 3083,
+      "predicted": 0.10782265035156806,
+      "actual": 0.11482322413233863,
+      "relative_error": -0.06096827391558102
+    },
+    {
+      "decile": 3,
+      "n": 3084,
+      "predicted": 0.1467042177051676,
+      "actual": 0.1559662775616083,
+      "relative_error": -0.05938501579472588
+    },
+    {
+      "decile": 4,
+      "n": 3083,
+      "predicted": 0.18332418955168442,
+      "actual": 0.1881284463185209,
+      "relative_error": -0.02553710967613254
+    },
+    {
+      "decile": 5,
+      "n": 3084,
+      "predicted": 0.22651450543506418,
+      "actual": 0.22114137483787288,
+      "relative_error": 0.02429726504653651
+    },
+    {
+      "decile": 6,
+      "n": 3083,
+      "predicted": 0.268912684338518,
+      "actual": 0.27116445021083363,
+      "relative_error": -0.008304060029125648
+    },
+    {
+      "decile": 7,
+      "n": 3083,
+      "predicted": 0.311751615122079,
+      "actual": 0.3058709049626987,
+      "relative_error": 0.019226118156277172
+    },
+    {
+      "decile": 8,
+      "n": 3084,
+      "predicted": 0.36660659540460006,
+      "actual": 0.3537613488975357,
+      "relative_error": 0.03631048600163744
+    },
+    {
+      "decile": 9,
+      "n": 3083,
+      "predicted": 0.4287653137553807,
+      "actual": 0.4031787220240026,
+      "relative_error": 0.06346215793068266
+    },
+    {
+      "decile": 10,
+      "n": 3084,
+      "predicted": 0.5453244158116529,
+      "actual": 0.4669260700389105,
+      "relative_error": 0.16790312386328998
+    }
+  ],
+  "ablation_auc": {
+    "interest_rate_only": 0.6702335485229313,
+    "without_grade_and_interest_rate": 0.67645089828512
+  },
+  "importance": [
+    {
+      "feature": "int_rate",
+      "mean_abs_shap": 0.4514
+    },
+    {
+      "feature": "term",
+      "mean_abs_shap": 0.186
+    },
+    {
+      "feature": "annual_inc",
+      "mean_abs_shap": 0.1746
+    },
+    {
+      "feature": "dti",
+      "mean_abs_shap": 0.1079
+    },
+    {
+      "feature": "loan_to_income",
+      "mean_abs_shap": 0.094
+    },
+    {
+      "feature": "revol_util",
+      "mean_abs_shap": 0.0625
+    },
+    {
+      "feature": "open_acc",
+      "mean_abs_shap": 0.0565
+    },
+    {
+      "feature": "total_acc",
+      "mean_abs_shap": 0.0468
+    },
+    {
+      "feature": "inq_last_6mths",
+      "mean_abs_shap": 0.0388
+    },
+    {
+      "feature": "installment_to_income",
+      "mean_abs_shap": 0.0337
+    },
+    {
+      "feature": "purpose",
+      "mean_abs_shap": 0.0333
+    },
+    {
+      "feature": "emp_length",
+      "mean_abs_shap": 0.0283
+    },
+    {
+      "feature": "home_ownership",
+      "mean_abs_shap": 0.0251
+    },
+    {
+      "feature": "emp_length_missing",
+      "mean_abs_shap": 0.0233
+    },
+    {
+      "feature": "credit_history_years",
+      "mean_abs_shap": 0.0226
+    },
+    {
+      "feature": "revol_bal",
+      "mean_abs_shap": 0.0193
+    },
+    {
+      "feature": "verification_status",
+      "mean_abs_shap": 0.0113
+    },
+    {
+      "feature": "installment",
+      "mean_abs_shap": 0.0039
+    },
+    {
+      "feature": "loan_amnt",
+      "mean_abs_shap": 0.0036
+    },
+    {
+      "feature": "delinq_2yrs",
+      "mean_abs_shap": 0.0029
+    },
+    {
+      "feature": "pub_rec",
+      "mean_abs_shap": 0.0012
+    },
+    {
+      "feature": "grade",
+      "mean_abs_shap": 0.001
+    }
+  ],
+  "examples": {
+    "highest_risk": {
+      "default_probability": 0.7333333333333333,
+      "reasons": [
+        {
+          "feature": "int_rate",
+          "value": 25.99,
+          "effect": "raises risk",
+          "contribution": 0.8828
+        },
+        {
+          "feature": "term",
+          "value": 60,
+          "effect": "raises risk",
+          "contribution": 0.3323
+        },
+        {
+          "feature": "annual_inc",
+          "value": 25000.0,
+          "effect": "raises risk",
+          "contribution": 0.2514
+        }
+      ]
+    },
+    "medium_risk": {
+      "default_probability": 0.23527713625866048,
+      "reasons": [
+        {
+          "feature": "annual_inc",
+          "value": 114000.0,
+          "effect": "lowers risk",
+          "contribution": -0.248
+        },
+        {
+          "feature": "dti",
+          "value": 28.26,
+          "effect": "raises risk",
+          "contribution": 0.1935
+        },
+        {
+          "feature": "inq_last_6mths",
+          "value": 3.0,
+          "effect": "raises risk",
+          "contribution": 0.1394
+        }
+      ]
+    },
+    "lowest_risk": {
+      "default_probability": 0.0,
+      "reasons": [
+        {
+          "feature": "int_rate",
+          "value": 5.32,
+          "effect": "lowers risk",
+          "contribution": -1.2662
+        },
+        {
+          "feature": "revol_util",
+          "value": 4.4,
+          "effect": "lowers risk",
+          "contribution": -0.3733
+        },
+        {
+          "feature": "annual_inc",
+          "value": 250000.0,
+          "effect": "lowers risk",
+          "contribution": -0.3488
+        }
+      ]
+    }
+  },
+  "counterfactuals": [
+    {
+      "applicant": 9372,
+      "scenario": "as applied",
+      "term": 60,
+      "loan_amnt": 21700.0,
+      "installment": 565.19,
+      "default_probability": 0.4420131291028446,
+      "tier": "high"
+    },
+    {
+      "applicant": 9372,
+      "scenario": "term 60 -> 36 months",
+      "term": 36,
+      "loan_amnt": 21700.0,
+      "installment": 797.5217528868212,
+      "default_probability": 0.32511737089201875,
+      "tier": "medium"
+    },
+    {
+      "applicant": 9372,
+      "scenario": "amount -10%",
+      "term": 60,
+      "loan_amnt": 19530.0,
+      "installment": 508.66292249075224,
+      "default_probability": 0.42679680567879325,
+      "tier": "high"
+    },
+    {
+      "applicant": 9372,
+      "scenario": "amount -20%",
+      "term": 60,
+      "loan_amnt": 17360.0,
+      "installment": 452.1448199917798,
+      "default_probability": 0.40043763676148797,
+      "tier": "high"
+    },
+    {
+      "applicant": 11875,
+      "scenario": "as applied",
+      "term": 60,
+      "loan_amnt": 20800.0,
+      "installment": 537.74,
+      "default_probability": 0.49009384775808146,
+      "tier": "high"
+    },
+    {
+      "applicant": 11875,
+      "scenario": "term 60 -> 36 months",
+      "term": 36,
+      "loan_amnt": 20800.0,
+      "installment": 760.7636389570675,
+      "default_probability": 0.38336143901068015,
+      "tier": "high"
+    },
+    {
+      "applicant": 11875,
+      "scenario": "amount -10%",
+      "term": 60,
+      "loan_amnt": 18720.0,
+      "installment": 483.96053055747365,
+      "default_probability": 0.46063651591289784,
+      "tier": "high"
+    },
+    {
+      "applicant": 11875,
+      "scenario": "amount -20%",
+      "term": 60,
+      "loan_amnt": 16640.0,
+      "installment": 430.1871382733099,
+      "default_probability": 0.4420131291028446,
+      "tier": "high"
+    },
+    {
+      "applicant": 7412,
+      "scenario": "as applied",
+      "term": 60,
+      "loan_amnt": 35000.0,
+      "installment": 911.59,
+      "default_probability": 0.5131348511383541,
+      "tier": "high"
+    },
+    {
+      "applicant": 7412,
+      "scenario": "term 60 -> 36 months",
+      "term": 36,
+      "loan_amnt": 35000.0,
+      "installment": 1286.3254078819696,
+      "default_probability": 0.38315988647114474,
+      "tier": "medium"
+    },
+    {
+      "applicant": 7412,
+      "scenario": "amount -10%",
+      "term": 60,
+      "loan_amnt": 31500.0,
+      "installment": 820.4240685334714,
+      "default_probability": 0.4970059880239522,
+      "tier": "high"
+    },
+    {
+      "applicant": 7412,
+      "scenario": "amount -20%",
+      "term": 60,
+      "loan_amnt": 28000.0,
+      "installment": 729.265838696419,
+      "default_probability": 0.49009384775808146,
+      "tier": "high"
+    }
+  ],
+  "sensitivity": [
+    {
+      "input": "annual_inc",
+      "scenario": "income -10%",
+      "change_pp": 1.1876424883929204
+    },
+    {
+      "input": "annual_inc",
+      "scenario": "income +10%",
+      "change_pp": -1.1155473063560961
+    },
+    {
+      "input": "int_rate",
+      "scenario": "interest rate +10%",
+      "change_pp": 2.201057877235557
+    },
+    {
+      "input": "dti",
+      "scenario": "debt-to-income +10%",
+      "change_pp": 0.3647827543593163
+    },
+    {
+      "input": "loan_amnt",
+      "scenario": "loan amount +10%",
+      "change_pp": 0.5227969202231508
+    },
+    {
+      "input": "revol_util",
+      "scenario": "credit use +10%",
+      "change_pp": 0.1953831203588441
+    }
+  ],
+  "sensitivity_auc": {
+    "clean": 0.6871759526311559,
+    "noise_5pct": 0.6851584171483472
+  },
+  "fairness_before": {
+    "income_quartile": {
+      "approval_ratio": 0.7497091797913655,
+      "demographic_parity_diff_pp": 22.507107343553457,
+      "tpr_gap_pp": 29.407224063430803,
+      "fpr_gap_pp": 17.60413936064792,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "Q1 (lowest)",
+          "n": 6844,
+          "approval_rate": 0.6742,
+          "default_rate": 0.3166,
+          "tpr": 0.4808,
+          "fpr": 0.254,
+          "included": true
+        },
+        {
+          "group": "Q2",
+          "n": 7467,
+          "approval_rate": 0.7221,
+          "default_rate": 0.2661,
+          "tpr": 0.4338,
+          "fpr": 0.2214,
+          "included": true
+        },
+        {
+          "group": "Q3",
+          "n": 7860,
+          "approval_rate": 0.8156,
+          "default_rate": 0.2394,
+          "tpr": 0.3172,
+          "fpr": 0.1425,
+          "included": true
+        },
+        {
+          "group": "Q4 (highest)",
+          "n": 8664,
+          "approval_rate": 0.8992,
+          "default_rate": 0.2095,
+          "tpr": 0.1868,
+          "fpr": 0.078,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 29.407224063430803,
+      "passes": false
+    },
+    "home_ownership": {
+      "approval_ratio": 0.9346364414283632,
+      "demographic_parity_diff_pp": 5.307267390487969,
+      "tpr_gap_pp": 5.163609113564194,
+      "fpr_gap_pp": 4.652582035949174,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "MORTGAGE",
+          "n": 14848,
+          "approval_rate": 0.812,
+          "default_rate": 0.209,
+          "tpr": 0.3342,
+          "fpr": 0.1494,
+          "included": true
+        },
+        {
+          "group": "OWN",
+          "n": 3499,
+          "approval_rate": 0.7645,
+          "default_rate": 0.2518,
+          "tpr": 0.353,
+          "fpr": 0.196,
+          "included": true
+        },
+        {
+          "group": "RENT",
+          "n": 12488,
+          "approval_rate": 0.7589,
+          "default_rate": 0.3097,
+          "tpr": 0.3858,
+          "fpr": 0.1762,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 5.163609113564194,
+      "passes": false
+    },
+    "employment_length_group": {
+      "approval_ratio": 0.7808354619064931,
+      "demographic_parity_diff_pp": 17.5760989767744,
+      "tpr_gap_pp": 15.4417954050307,
+      "fpr_gap_pp": 15.866250088914907,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "0-2 years",
+          "n": 7449,
+          "approval_rate": 0.7963,
+          "default_rate": 0.2791,
+          "tpr": 0.3401,
+          "fpr": 0.1508,
+          "included": true
+        },
+        {
+          "group": "10+ years",
+          "n": 10311,
+          "approval_rate": 0.802,
+          "default_rate": 0.2169,
+          "tpr": 0.343,
+          "fpr": 0.1579,
+          "included": true
+        },
+        {
+          "group": "3-9 years",
+          "n": 11510,
+          "approval_rate": 0.7843,
+          "default_rate": 0.2599,
+          "tpr": 0.3666,
+          "fpr": 0.1627,
+          "included": true
+        },
+        {
+          "group": "Not reported",
+          "n": 1565,
+          "approval_rate": 0.6262,
+          "default_rate": 0.3476,
+          "tpr": 0.4945,
+          "fpr": 0.3095,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 15.866250088914907,
+      "passes": false
+    },
+    "region": {
+      "approval_ratio": 0.9521886444156428,
+      "demographic_parity_diff_pp": 3.846238115980527,
+      "tpr_gap_pp": 5.5109503596978975,
+      "fpr_gap_pp": 2.940599589836787,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "Midwest",
+          "n": 5141,
+          "approval_rate": 0.766,
+          "default_rate": 0.2509,
+          "tpr": 0.3938,
+          "fpr": 0.1805,
+          "included": true
+        },
+        {
+          "group": "Northeast",
+          "n": 5642,
+          "approval_rate": 0.7901,
+          "default_rate": 0.2758,
+          "tpr": 0.3387,
+          "fpr": 0.1608,
+          "included": true
+        },
+        {
+          "group": "South",
+          "n": 11041,
+          "approval_rate": 0.7756,
+          "default_rate": 0.2613,
+          "tpr": 0.3757,
+          "fpr": 0.1709,
+          "included": true
+        },
+        {
+          "group": "West",
+          "n": 9011,
+          "approval_rate": 0.8045,
+          "default_rate": 0.2353,
+          "tpr": 0.3401,
+          "fpr": 0.1511,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 5.5109503596978975,
+      "passes": false
+    }
+  },
+  "fairness_after": {
+    "income_quartile": {
+      "approval_ratio": 0.9598159924232176,
+      "demographic_parity_diff_pp": 1.988750502209713,
+      "tpr_gap_pp": 4.2935028803054,
+      "fpr_gap_pp": 2.158024221006405,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "Q1 (lowest)",
+          "n": 6844,
+          "approval_rate": 0.4842,
+          "default_rate": 0.3166,
+          "tpr": 0.6917,
+          "fpr": 0.4343,
+          "included": true
+        },
+        {
+          "group": "Q2",
+          "n": 7467,
+          "approval_rate": 0.475,
+          "default_rate": 0.2661,
+          "tpr": 0.7162,
+          "fpr": 0.4557,
+          "included": true
+        },
+        {
+          "group": "Q3",
+          "n": 7860,
+          "approval_rate": 0.4949,
+          "default_rate": 0.2394,
+          "tpr": 0.6732,
+          "fpr": 0.4522,
+          "included": true
+        },
+        {
+          "group": "Q4 (highest)",
+          "n": 8664,
+          "approval_rate": 0.4933,
+          "default_rate": 0.2095,
+          "tpr": 0.6986,
+          "fpr": 0.4558,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 4.2935028803054,
+      "passes": true,
+      "flagged_share": 0.512729041673423,
+      "precision": 0.34516129032258064,
+      "accuracy": 0.586606129398411
+    },
+    "home_ownership": {
+      "approval_ratio": 0.9442347082110122,
+      "demographic_parity_diff_pp": 3.315195518732461,
+      "tpr_gap_pp": 3.6169457041133724,
+      "fpr_gap_pp": 1.433527782412164,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "MORTGAGE",
+          "n": 14848,
+          "approval_rate": 0.5945,
+          "default_rate": 0.209,
+          "tpr": 0.6139,
+          "fpr": 0.3504,
+          "included": true
+        },
+        {
+          "group": "OWN",
+          "n": 3499,
+          "approval_rate": 0.5816,
+          "default_rate": 0.2518,
+          "tpr": 0.5778,
+          "fpr": 0.3648,
+          "included": true
+        },
+        {
+          "group": "RENT",
+          "n": 12488,
+          "approval_rate": 0.5613,
+          "default_rate": 0.3097,
+          "tpr": 0.6108,
+          "fpr": 0.3614,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 3.6169457041133724,
+      "passes": true,
+      "flagged_share": 0.4203988973568996,
+      "precision": 0.3684332330479056,
+      "accuracy": 0.6347656883411708
+    },
+    "employment_length_group": {
+      "approval_ratio": 0.9369358117920419,
+      "demographic_parity_diff_pp": 3.7675821875765902,
+      "tpr_gap_pp": 4.1293537617066995,
+      "fpr_gap_pp": 2.325068302489819,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "0-2 years",
+          "n": 7449,
+          "approval_rate": 0.565,
+          "default_rate": 0.2791,
+          "tpr": 0.5964,
+          "fpr": 0.3724,
+          "included": true
+        },
+        {
+          "group": "10+ years",
+          "n": 10311,
+          "approval_rate": 0.5974,
+          "default_rate": 0.2169,
+          "tpr": 0.5716,
+          "fpr": 0.3558,
+          "included": true
+        },
+        {
+          "group": "3-9 years",
+          "n": 11510,
+          "approval_rate": 0.5745,
+          "default_rate": 0.2599,
+          "tpr": 0.5896,
+          "fpr": 0.3679,
+          "included": true
+        },
+        {
+          "group": "Not reported",
+          "n": 1565,
+          "approval_rate": 0.5597,
+          "default_rate": 0.3476,
+          "tpr": 0.5551,
+          "fpr": 0.379,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 4.1293537617066995,
+      "passes": true,
+      "flagged_share": 0.42088535754824064,
+      "precision": 0.35321312991215903,
+      "accuracy": 0.6218258472514999
+    },
+    "region": {
+      "approval_ratio": 0.9621429650095121,
+      "demographic_parity_diff_pp": 1.9988675511638299,
+      "tpr_gap_pp": 3.9512280967507585,
+      "fpr_gap_pp": 2.768940894629396,
+      "excluded_groups": [],
+      "groups": [
+        {
+          "group": "Midwest",
+          "n": 5141,
+          "approval_rate": 0.51,
+          "default_rate": 0.2509,
+          "tpr": 0.6806,
+          "fpr": 0.4261,
+          "included": true
+        },
+        {
+          "group": "Northeast",
+          "n": 5642,
+          "approval_rate": 0.528,
+          "default_rate": 0.2758,
+          "tpr": 0.6652,
+          "fpr": 0.3984,
+          "included": true
+        },
+        {
+          "group": "South",
+          "n": 11041,
+          "approval_rate": 0.508,
+          "default_rate": 0.2613,
+          "tpr": 0.7047,
+          "fpr": 0.4167,
+          "included": true
+        },
+        {
+          "group": "West",
+          "n": 9011,
+          "approval_rate": 0.5269,
+          "default_rate": 0.2353,
+          "tpr": 0.6849,
+          "fpr": 0.4079,
+          "included": true
+        }
+      ],
+      "equalized_odds_diff_pp": 3.9512280967507585,
+      "passes": true,
+      "flagged_share": 0.48247121777201235,
+      "precision": 0.3628419708274518,
+      "accuracy": 0.6130371331279391
+    }
+  },
+  "group_calibration": {
+    "income_quartile": [
+      {
+        "group": "Q1 (lowest)",
+        "n": 6844,
+        "predicted": 0.3303718493474736,
+        "actual": 0.31662770309760374,
+        "relative_error": 0.043407908137567786,
+        "brier": 0.19943780662184
+      },
+      {
+        "group": "Q2",
+        "n": 7467,
+        "predicted": 0.29514273815201436,
+        "actual": 0.26610419177715283,
+        "relative_error": 0.1091247235939059,
+        "brier": 0.1822863226728001
+      },
+      {
+        "group": "Q3",
+        "n": 7860,
+        "predicted": 0.24737354618140361,
+        "actual": 0.23944020356234097,
+        "relative_error": 0.03313287618800875,
+        "brier": 0.1701338987909848
+      },
+      {
+        "group": "Q4 (highest)",
+        "n": 8664,
+        "predicted": 0.20067911121783347,
+        "actual": 0.20948753462603878,
+        "relative_error": -0.042047482318837925,
+        "brier": 0.15466397836546253
+      }
+    ],
+    "home_ownership": [
+      {
+        "group": "MORTGAGE",
+        "n": 14848,
+        "predicted": 0.24787519762243262,
+        "actual": 0.208984375,
+        "relative_error": 0.18609440357649998,
+        "brier": 0.15654678029370014
+      },
+      {
+        "group": "OWN",
+        "n": 3499,
+        "predicted": 0.27482606925982744,
+        "actual": 0.2517862246356102,
+        "relative_error": 0.0915055804087812,
+        "brier": 0.18155249506066
+      },
+      {
+        "group": "RENT",
+        "n": 12488,
+        "predicted": 0.2807389737871818,
+        "actual": 0.30965727098014095,
+        "relative_error": -0.0933880774103113,
+        "brier": 0.1956827913961459
+      }
+    ],
+    "employment_length_group": [
+      {
+        "group": "0-2 years",
+        "n": 7449,
+        "predicted": 0.2619151215840867,
+        "actual": 0.2790978654853,
+        "relative_error": -0.06156530029828666,
+        "brier": 0.18411447235377107
+      },
+      {
+        "group": "10+ years",
+        "n": 10311,
+        "predicted": 0.25450394192990505,
+        "actual": 0.216855785083891,
+        "relative_error": 0.17360918838964712,
+        "brier": 0.16007589236527744
+      },
+      {
+        "group": "3-9 years",
+        "n": 11510,
+        "predicted": 0.26451041297596833,
+        "actual": 0.2599478714161599,
+        "relative_error": 0.017551755799931623,
+        "brier": 0.1775818384048566
+      },
+      {
+        "group": "Not reported",
+        "n": 1565,
+        "predicted": 0.337523907999894,
+        "actual": 0.34760383386581467,
+        "relative_error": -0.028998316140010694,
+        "brier": 0.21557014836527963
+      }
+    ],
+    "region": [
+      {
+        "group": "Midwest",
+        "n": 5141,
+        "predicted": 0.2753257856780521,
+        "actual": 0.2509239447578292,
+        "relative_error": 0.09724795672160158,
+        "brier": 0.17403111124539916
+      },
+      {
+        "group": "Northeast",
+        "n": 5642,
+        "predicted": 0.2599258934562376,
+        "actual": 0.27578872740163063,
+        "relative_error": -0.057518064987087,
+        "brier": 0.1862709154567158
+      },
+      {
+        "group": "South",
+        "n": 11041,
+        "predicted": 0.26765186776389543,
+        "actual": 0.2612987953989675,
+        "relative_error": 0.024313439161583794,
+        "brier": 0.17712080407389624
+      },
+      {
+        "group": "West",
+        "n": 9011,
+        "predicted": 0.2564465240550677,
+        "actual": 0.23526800577072468,
+        "relative_error": 0.09001869257557304,
+        "brier": 0.1666985048578296
+      }
+    ]
+  },
+  "runtime_seconds": 189.1,
+  "mlflow": {
+    "experiment": "bk-credit-risk-module4",
+    "registered_model": "credit_risk_model",
+    "version": "1",
+    "alias": "staging"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "info": {
+    "name": "BK Credit-Risk API (Module 4)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Applicant A (typical)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/predict",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "predict"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"loan_amnt\": 12000,\n  \"term\": 36,\n  \"int_rate\": 13.5,\n  \"installment\": 407,\n  \"grade\": \"C\",\n  \"home_ownership\": \"RENT\",\n  \"annual_inc\": 55000,\n  \"verification_status\": \"Verified\",\n  \"purpose\": \"debt_consolidation\",\n  \"dti\": 18,\n  \"revol_bal\": 9000,\n  \"revol_util\": 45,\n  \"credit_history_years\": 12,\n  \"emp_length\": 5\n}"
+        }
+      }
+    },
+    {
+      "name": "Applicant B (higher-risk profile)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/predict",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "predict"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"loan_amnt\": 21700,\n  \"term\": 60,\n  \"int_rate\": 26.0,\n  \"installment\": 565,\n  \"grade\": \"F\",\n  \"home_ownership\": \"RENT\",\n  \"annual_inc\": 25000,\n  \"verification_status\": \"Verified\",\n  \"purpose\": \"debt_consolidation\",\n  \"dti\": 29.7,\n  \"revol_bal\": 15000,\n  \"revol_util\": 80,\n  \"credit_history_years\": 6,\n  \"inq_last_6mths\": 3,\n  \"delinq_2yrs\": 1\n}"
+        }
+      }
+    },
+    {
+      "name": "Applicant C (lower-risk profile)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/predict",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "predict"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"loan_amnt\": 8000,\n  \"term\": 36,\n  \"int_rate\": 5.3,\n  \"installment\": 241,\n  \"grade\": \"A\",\n  \"home_ownership\": \"MORTGAGE\",\n  \"annual_inc\": 250000,\n  \"verification_status\": \"Not Verified\",\n  \"purpose\": \"credit_card\",\n  \"dti\": 8,\n  \"revol_bal\": 3000,\n  \"revol_util\": 4.4,\n  \"credit_history_years\": 22,\n  \"emp_length\": 10\n}"
+        }
+      }
+    }
+  ]
+}
