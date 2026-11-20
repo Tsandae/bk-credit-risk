@@ -83,7 +83,7 @@ T = R["models"][MODEL]["test"]
 
 # ------------------------------------------------------------------ sidebar
 st.sidebar.title("BK Credit-Risk Insights")
-st.sidebar.caption("Decision-support model for credit review. Built for a stakeholder audience (AIA6550, Module 5).")
+st.sidebar.caption("Decision-support model for credit review. Built for a stakeholder audience (BAN6800, Module 5).")
 page = st.sidebar.radio("Explore", ["1. Overview", "2. Score an applicant & what-if", "3. What drives predictions",
                                     "4. Ethical compliance (fairness)", "5. Limits & transparency",
                                     "6. Explanations (SHAP & LIME)", "7. Monitoring"], label_visibility="collapsed")
