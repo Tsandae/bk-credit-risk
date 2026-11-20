@@ -1,0 +1,36 @@
+name: CD
+# After CI passes on main: publish the images to GitHub Container Registry and ask the host to redeploy the live API.
+# Streamlit Community Cloud redeploys the dashboards by itself when main changes.
+on:
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types: [completed]
+
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push images
+        run: |
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          for pair in "api:Dockerfile.api" "dashboard:Dockerfile.dashboard" "monitor:Dockerfile.monitor"; do
+            name=${pair%%:*}; file=${pair##*:}
+            docker build -f docker/$file -t ghcr.io/$OWNER/bk-credit-$name:latest -t ghcr.io/$OWNER/bk-credit-$name:${{ github.sha }} .
+            docker push --all-tags ghcr.io/$OWNER/bk-credit-$name
+          done
+      - name: Redeploy the live API (Render deploy hook; skipped if the secret is not set)
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$RENDER_DEPLOY_HOOK" ]; then curl -fsS -X POST "$RENDER_DEPLOY_HOOK"; else echo "RENDER_DEPLOY_HOOK not set: skipping"; fi

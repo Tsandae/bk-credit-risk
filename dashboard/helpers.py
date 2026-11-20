@@ -136,3 +136,57 @@ def fairness_view(scored: pd.DataFrame, attr: str, threshold: float, min_n: int 
     summary["fpr_ok"] = summary["fpr_gap_pp"] <= MAX_GAP_PP
     summary["all_ok"] = summary["approval_ok"] and summary["tpr_ok"] and summary["fpr_ok"]
     return t, summary
+
+
+# ------------------------------------------------------------------ presets and LIME (Final Project)
+PRESETS = {
+    "Typical applicant": dict(loan_amnt=12000, term=36, int_rate=13.5, grade="C", annual_inc=55000, dti=18.0, revol_util=45.0,
+                              revol_bal=9000, credit_history_years=12, home_ownership="RENT", verification_status="Verified",
+                              purpose="debt_consolidation", delinq_2yrs=0, inq_last_6mths=0, open_acc=10, pub_rec=0, total_acc=20, emp_length=5),
+    "Higher-risk example": dict(loan_amnt=21700, term=60, int_rate=26.0, grade="F", annual_inc=25000, dti=29.7, revol_util=80.0,
+                                revol_bal=15000, credit_history_years=6, home_ownership="RENT", verification_status="Verified",
+                                purpose="debt_consolidation", delinq_2yrs=1, inq_last_6mths=3, open_acc=9, pub_rec=0, total_acc=14, emp_length=2),
+    "Lower-risk example": dict(loan_amnt=8000, term=36, int_rate=5.3, grade="A", annual_inc=250000, dti=8.0, revol_util=4.4,
+                               revol_bal=3000, credit_history_years=22, home_ownership="MORTGAGE", verification_status="Not Verified",
+                               purpose="credit_card", delinq_2yrs=0, inq_last_6mths=0, open_acc=12, pub_rec=0, total_acc=30, emp_length=10),
+}
+
+
+def load_background() -> pd.DataFrame:
+    """2,000 anonymous 2015 test loans (22 model inputs only) used as the reference for LIME."""
+    return pd.read_parquet(DATA / "background.parquet")
+
+
+def lime_explain(model, frame: pd.DataFrame, background: pd.DataFrame, k: int = 8, num_samples: int = 3000) -> pd.DataFrame:
+    """LIME (local linear approximation) for one applicant, using the calibrated probability. Returns rule, weight."""
+    from lime.lime_tabular import LimeTabularExplainer
+
+    from src.module4 import config
+
+    cols = config.FEATURES
+    cat_idx = [cols.index(c) for c in config.CATEGORICAL]
+    levels = {c: sorted(background[c].astype(str).unique()) for c in config.CATEGORICAL}
+
+    def encode(df):
+        out = df[cols].copy()
+        for c in config.CATEGORICAL:
+            out[c] = out[c].astype(str).map({v: i for i, v in enumerate(levels[c])}).fillna(0)
+        return out.to_numpy(dtype=float)
+
+    def decode(arr):
+        df = pd.DataFrame(arr, columns=cols)
+        for c in config.CATEGORICAL:
+            idx = df[c].round().astype(int).clip(0, len(levels[c]) - 1)
+            df[c] = pd.Categorical([levels[c][i] for i in idx], categories=levels[c])
+        return df
+
+    def predict_fn(arr):
+        raw = model.raw(decode(arr))
+        p = model.calibrator.predict(raw)
+        return np.column_stack([1 - p, p])
+
+    explainer = LimeTabularExplainer(encode(background), feature_names=cols, categorical_features=cat_idx,
+                                     categorical_names={cols.index(c): levels[c] for c in config.CATEGORICAL},
+                                     class_names=["repaid", "default"], mode="classification", discretize_continuous=True, random_state=0)
+    exp = explainer.explain_instance(encode(frame)[0], predict_fn, num_features=k, num_samples=num_samples, labels=(1,))
+    return pd.DataFrame(exp.as_list(label=1), columns=["rule", "weight"])

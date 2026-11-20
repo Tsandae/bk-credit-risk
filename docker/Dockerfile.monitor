@@ -1,0 +1,19 @@
+# Scheduled monitoring + retraining job: recomputes drift and fairness checks and writes the monitoring dashboard's data.
+#   docker build -f docker/Dockerfile.monitor -t bk-credit-monitor .
+# Needs the curated Module 3 file mounted at /app/data/curated (never baked into the image).
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY dashboard/requirements.txt dashboard/requirements.txt
+COPY requirements-final.txt .
+RUN pip install --no-cache-dir -r dashboard/requirements.txt -r requirements-final.txt mlflow>=2.14
+COPY dashboard/ dashboard/
+COPY src/__init__.py src/__init__.py
+COPY src/module4/ src/module4/
+COPY src/final/ src/final/
+COPY models/module4/credit_risk_model.joblib models/module4/credit_risk_model.joblib
+RUN useradd --create-home appuser && mkdir -p reports/final logs && chown -R appuser:appuser /app
+USER appuser
+# Runs once a day; retraining is NOT run here (it needs a human approval step: python -m src.final.retrain).
+CMD ["sh", "-c", "while true; do python -m src.final.monitor; python -m src.final.evidently_report || true; sleep ${MONITOR_INTERVAL_SECONDS:-86400}; done"]

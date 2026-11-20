@@ -93,6 +93,23 @@ def predict(application: LoanApplication):
         raise HTTPException(status_code=503, detail=str(e))
     X = to_frame(application)
     raw = model.raw(X)
-    return Prediction(default_probability=round(float(model.calibrator.predict(raw)[0]), 4),
-                      risk_tier=str(model.tier(raw)[0]), top_reasons=expl.reasons(X, k=3),
-                      model_version=f"{config.REGISTERED_MODEL}:{model.name}")
+    result = Prediction(default_probability=round(float(model.calibrator.predict(raw)[0]), 4),
+                        risk_tier=str(model.tier(raw)[0]), top_reasons=expl.reasons(X, k=3),
+                        model_version=f"{config.REGISTERED_MODEL}:{model.name}")
+    _store_explanation(application, X, expl, result)
+    return result
+
+
+def _store_explanation(application, X, expl, result):
+    """Final Project: save every prediction and its full SHAP explanation for audit (only if EXPLANATION_DB is set)."""
+    path = os.environ.get("EXPLANATION_DB")
+    if not path:
+        return
+    try:
+        from src.final.explanation_store import ExplanationStore
+        agg, _ = expl.values(X)
+        ExplanationStore(path).record(result.model_version, application.model_dump(), result.default_probability,
+                                      result.risk_tier, dict(zip(config.FEATURES, agg[0])))
+    except Exception:          # logging must never block a prediction; the failure is visible in server logs
+        import logging
+        logging.getLogger("api").exception("explanation store write failed")

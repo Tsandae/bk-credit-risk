@@ -1,0 +1,285 @@
+{
+  "generated": "2026-11-17T10:18:49",
+  "reference": "2007-2013 training window",
+  "reference_n": 160785,
+  "reference_validation_auc": 0.7019953360152485,
+  "limits": {
+    "psi": 0.2,
+    "auc_drop": 0.03,
+    "tier_error": 0.1,
+    "approval_ratio": 0.8,
+    "gap_pp": 5.0
+  },
+  "windows": {
+    "2014 (validation)": {
+      "n": 74154,
+      "default_rate": 0.26217061790328233,
+      "mean_predicted": 0.26217061790328233,
+      "auc": 0.7019953360152485,
+      "ks": 0.29720100623965434,
+      "capture_top20": 0.35939509284501825,
+      "flagged_share": 0.20000269708984006,
+      "brier": 0.17417040916887794,
+      "auc_drop_vs_reference": 0.0,
+      "tiers": {
+        "low": {
+          "share": 0.5,
+          "predicted": 0.14825749465518392,
+          "actual": 0.148447824797044,
+          "relative_error": -0.0012821349327299663
+        },
+        "medium": {
+          "share": 0.2999973029101599,
+          "predicted": 0.3123867623427455,
+          "actual": 0.3124157151847523,
+          "relative_error": -9.26740896811237e-05
+        },
+        "high": {
+          "share": 0.20000269708984006,
+          "predicted": 0.47162706193736303,
+          "actual": 0.4711078147124267,
+          "relative_error": 0.0011021834253658186
+        }
+      },
+      "psi": {
+        "score": 0.03364593069610197,
+        "int_rate": 0.06571521391496694,
+        "annual_inc": 0.011902222146042373,
+        "dti": 0.04131497503355578,
+        "loan_amnt": 0.022968401296402673,
+        "revol_util": 0.02749881568624403,
+        "loan_to_income": 0.0073192472393591185,
+        "term": 0.0357476920764621,
+        "grade": 0.0842652205863173,
+        "home_ownership": 0.00889345216465442,
+        "purpose": 0.10348709569848222
+      },
+      "fairness": {
+        "income_quartile": {
+          "approval_ratio": 0.7566199384200752,
+          "tpr_gap_pp": 26.98486968301177,
+          "fpr_gap_pp": 16.985892287097105,
+          "flagged_share": 0.20000269708984006,
+          "approval_ok": 0.0,
+          "tpr_ok": 0.0,
+          "fpr_ok": 0.0,
+          "all_ok": 0.0
+        },
+        "home_ownership": {
+          "approval_ratio": 0.9346982477907445,
+          "tpr_gap_pp": 3.842596376808477,
+          "fpr_gap_pp": 4.658406760846076,
+          "flagged_share": 0.20000269708984006,
+          "approval_ok": 1.0,
+          "tpr_ok": 1.0,
+          "fpr_ok": 1.0,
+          "all_ok": 1.0
+        },
+        "employment_length_group": {
+          "approval_ratio": 0.7619800408948028,
+          "tpr_gap_pp": 18.343912456558577,
+          "fpr_gap_pp": 17.096176698885447,
+          "flagged_share": 0.20000269708984006,
+          "approval_ok": 0.0,
+          "tpr_ok": 0.0,
+          "fpr_ok": 0.0,
+          "all_ok": 0.0
+        },
+        "region": {
+          "approval_ratio": 0.9614771296551913,
+          "tpr_gap_pp": 4.6896106812382765,
+          "fpr_gap_pp": 1.848935658913589,
+          "flagged_share": 0.20000269708984006,
+          "approval_ok": 1.0,
+          "tpr_ok": 1.0,
+          "fpr_ok": 1.0,
+          "all_ok": 1.0
+        }
+      },
+      "alerts": [
+        {
+          "type": "bias drift",
+          "item": "income_quartile: approval ratio",
+          "value": 0.757,
+          "limit": 0.8
+        },
+        {
+          "type": "bias drift",
+          "item": "income_quartile: TPR gap",
+          "value": 27.0,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "income_quartile: FPR gap",
+          "value": 17.0,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "employment_length_group: approval ratio",
+          "value": 0.762,
+          "limit": 0.8
+        },
+        {
+          "type": "bias drift",
+          "item": "employment_length_group: TPR gap",
+          "value": 18.3,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "employment_length_group: FPR gap",
+          "value": 17.1,
+          "limit": 5.0
+        }
+      ],
+      "breach": true,
+      "action": "Investigate (first breach)"
+    },
+    "2015 (test)": {
+      "n": 30835,
+      "default_rate": 0.2546132641478839,
+      "mean_predicted": 0.26424308919384926,
+      "auc": 0.6871759526311559,
+      "ks": 0.2808128157734889,
+      "capture_top20": 0.36173735829830594,
+      "flagged_share": 0.21491811253445758,
+      "brier": 0.17523416484427368,
+      "auc_drop_vs_reference": 0.01481938338409261,
+      "tiers": {
+        "low": {
+          "share": 0.49855683476568835,
+          "predicted": 0.14394597333148504,
+          "actual": 0.14896246666233007,
+          "relative_error": -0.033676223569904205
+        },
+        "medium": {
+          "share": 0.28652505269985407,
+          "predicted": 0.31183293544442947,
+          "actual": 0.30797962648556876,
+          "relative_error": 0.01251157098549592
+        },
+        "high": {
+          "share": 0.21491811253445758,
+          "predicted": 0.47985668064220455,
+          "actual": 0.4285498717368342,
+          "relative_error": 0.11972190937179206
+        }
+      },
+      "psi": {
+        "score": 0.048080835066999755,
+        "int_rate": 0.03262772394369564,
+        "annual_inc": 0.012992350684707017,
+        "dti": 0.10744778619219711,
+        "loan_amnt": 0.03231965975255771,
+        "revol_util": 0.05020130102620384,
+        "loan_to_income": 0.006897461730361192,
+        "term": 0.07662558576480825,
+        "grade": 0.16908340981565761,
+        "home_ownership": 0.01668296180765836,
+        "purpose": 0.09180650971052808
+      },
+      "fairness": {
+        "income_quartile": {
+          "approval_ratio": 0.7497091797913655,
+          "tpr_gap_pp": 29.407224063430803,
+          "fpr_gap_pp": 17.60413936064792,
+          "flagged_share": 0.21491811253445758,
+          "approval_ok": 0.0,
+          "tpr_ok": 0.0,
+          "fpr_ok": 0.0,
+          "all_ok": 0.0
+        },
+        "home_ownership": {
+          "approval_ratio": 0.9346364414283632,
+          "tpr_gap_pp": 5.163609113564194,
+          "fpr_gap_pp": 4.652582035949174,
+          "flagged_share": 0.21491811253445758,
+          "approval_ok": 1.0,
+          "tpr_ok": 0.0,
+          "fpr_ok": 1.0,
+          "all_ok": 0.0
+        },
+        "employment_length_group": {
+          "approval_ratio": 0.7808354619064931,
+          "tpr_gap_pp": 15.4417954050307,
+          "fpr_gap_pp": 15.866250088914907,
+          "flagged_share": 0.21491811253445758,
+          "approval_ok": 0.0,
+          "tpr_ok": 0.0,
+          "fpr_ok": 0.0,
+          "all_ok": 0.0
+        },
+        "region": {
+          "approval_ratio": 0.9521886444156428,
+          "tpr_gap_pp": 5.5109503596978975,
+          "fpr_gap_pp": 2.940599589836787,
+          "flagged_share": 0.21491811253445758,
+          "approval_ok": 1.0,
+          "tpr_ok": 0.0,
+          "fpr_ok": 1.0,
+          "all_ok": 0.0
+        }
+      },
+      "alerts": [
+        {
+          "type": "calibration drift",
+          "item": "high tier",
+          "value": 0.12,
+          "limit": 0.1
+        },
+        {
+          "type": "bias drift",
+          "item": "income_quartile: approval ratio",
+          "value": 0.75,
+          "limit": 0.8
+        },
+        {
+          "type": "bias drift",
+          "item": "income_quartile: TPR gap",
+          "value": 29.4,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "income_quartile: FPR gap",
+          "value": 17.6,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "home_ownership: TPR gap",
+          "value": 5.2,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "employment_length_group: approval ratio",
+          "value": 0.781,
+          "limit": 0.8
+        },
+        {
+          "type": "bias drift",
+          "item": "employment_length_group: TPR gap",
+          "value": 15.4,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "employment_length_group: FPR gap",
+          "value": 15.9,
+          "limit": 5.0
+        },
+        {
+          "type": "bias drift",
+          "item": "region: TPR gap",
+          "value": 5.5,
+          "limit": 5.0
+        }
+      ],
+      "breach": true,
+      "action": "REVIEW / RETRAIN (second breach in a row)"
+    }
+  }
+}

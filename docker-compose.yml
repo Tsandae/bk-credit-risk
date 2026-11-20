@@ -1,0 +1,56 @@
+# Multi-container setup: live API + stakeholder dashboard + monitoring dashboard + monitoring job + MLflow (+ Module 3 pipeline).
+#   docker compose up --build                  # API :8000, dashboard :8501, monitoring :8502, MLflow :5000
+#   docker compose --profile pipeline run --rm pipeline     # run the Module 3 data pipeline (needs data/raw/loan.csv and ANON_SALT)
+# Secrets (ANON_SALT) come from your shell or a .env file that is NOT committed.
+name: bk-credit-risk
+
+x-dash: &dash
+  build: {context: ., dockerfile: docker/Dockerfile.dashboard}
+  restart: unless-stopped
+
+services:
+  api:
+    build: {context: ., dockerfile: docker/Dockerfile.api}
+    ports: ["8000:8000"]
+    environment:
+      EXPLANATION_DB: /app/logs/explanations.db      # every prediction + SHAP explanation is stored for audit
+    volumes: ["./logs:/app/logs"]
+    restart: unless-stopped
+
+  dashboard:
+    <<: *dash
+    ports: ["8501:8501"]
+    depends_on: [api]
+
+  monitoring:
+    <<: *dash
+    command: ["streamlit", "run", "dashboard/monitoring_app.py", "--server.port", "8502", "--server.address", "0.0.0.0"]
+    ports: ["8502:8502"]
+    environment: {MONITORING_DIR: /app/dashboard/data/live}
+    volumes: ["monitoring-data:/app/dashboard/data/live:ro"]
+
+  monitor-job:
+    build: {context: ., dockerfile: docker/Dockerfile.monitor}
+    environment: {MONITOR_INTERVAL_SECONDS: "86400", MONITORING_OUT_DIR: /app/dashboard/data/live}
+    volumes:
+      - ./data/curated:/app/data/curated:ro
+      - ./reports/final:/app/reports/final
+      - monitoring-data:/app/dashboard/data/live
+    restart: unless-stopped
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow/mlflow.db --default-artifact-root /mlflow/artifacts
+    ports: ["5000:5000"]
+    volumes: ["mlflow-data:/mlflow"]
+    restart: unless-stopped
+
+  pipeline:                                   # Module 3 pipeline; uses the Module 3 Dockerfile at the repository root
+    profiles: ["pipeline"]
+    build: {context: ., dockerfile: Dockerfile}
+    environment: {ANON_SALT: "${ANON_SALT:?set ANON_SALT in your shell or .env}"}
+    volumes: ["./data:/app/data", "./reports:/app/reports", "./logs:/app/logs"]
+
+volumes:
+  monitoring-data:
+  mlflow-data:

@@ -1,0 +1,6 @@
+# Final Project extras (dashboards, monitoring, XAI, retraining). Install with requirements-module4.txt.
+streamlit>=1.40
+plotly>=5.24
+lime>=0.2.0.1
+evidently>=0.7
+scipy>=1.11

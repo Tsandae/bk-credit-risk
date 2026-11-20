@@ -1,0 +1,19 @@
+# Live prediction API: POST /predict, GET /health, docs at /docs.
+#   docker build -f docker/Dockerfile.api -t bk-credit-api .
+#   docker run -p 8000:8000 -e EXPLANATION_DB=/app/logs/explanations.db -v "$PWD/logs:/app/logs" bk-credit-api
+# Cloud hosts (Render, Hugging Face Spaces) set $PORT; default 8000.
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements-api.txt .
+RUN pip install --no-cache-dir -r requirements-api.txt
+COPY src/__init__.py src/__init__.py
+COPY src/module4/ src/module4/
+COPY src/final/ src/final/
+COPY models/module4/credit_risk_model.joblib models/module4/credit_risk_model.joblib
+RUN useradd --create-home appuser && mkdir -p logs && chown -R appuser:appuser /app
+USER appuser
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD python -c "import os,urllib.request;urllib.request.urlopen('http://127.0.0.1:%s/health' % os.environ.get('PORT','8000'))" || exit 1
+CMD ["sh", "-c", "uvicorn src.module4.api:app --host 0.0.0.0 --port ${PORT:-8000}"]

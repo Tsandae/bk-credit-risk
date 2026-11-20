@@ -1,0 +1,18 @@
+# Regulatory compliance report (GDPR, CCPA/CPRA, HIPAA, and local law)
+
+This is a self-assessment for a course project, not legal advice. Which law applies depends on where the data subjects live and where the bank operates; a qualified lawyer must confirm before any real use. The deployment context is Bank of Kigali (Rwanda), so Rwandan law is the primary reference.
+
+| Regime | Applies to this project? | Why | Relevant requirements and how the project addresses them |
+|---|---|---|---|
+| **Rwanda: Law No. 058/2021 on personal data and privacy** | Yes, for any real deployment on Bank of Kigali customers | Bank of Kigali is a Rwandan controller | Lawful basis, purpose limitation, data minimisation, security, data subject rights. Addressed by: purpose-limited data policy, removal of identifiers, access control and retention (`governance/policy.yaml`), audit log. Article-level mapping and any cross-border transfer rules must be checked by the bank's data protection officer. |
+| **GDPR (EU 2016/679)** | Not directly (no EU data subjects in the data). Used as a benchmark of good practice and relevant if EU residents are ever served | LendingClub data are US residents | Art. 5 principles: minimisation, purpose limitation, storage limitation (retention rules), integrity (hash-chained logs). Art. 22 (solely automated decisions with significant effect): model is decision support with human review and an override log. Art. 13-15 (meaningful information about the logic): per-prediction reasons and the explanation store. Art. 35 (impact assessment): `ALGORITHMIC_IMPACT_ASSESSMENT.md`. Art. 17 (erasure): explanation store supports purge; erasure of an individual record needs a request-id lookup process. |
+| **EU AI Act (Reg. 2024/1689)** | Not directly; informative | Credit scoring of natural persons is listed as high-risk | Would require risk management, data governance, logging, transparency, human oversight, accuracy and robustness documentation. This project already supplies: logging (explanation store), documentation (model card), human oversight, monitoring. Conformity assessment is out of scope. |
+| **CCPA / CPRA (California)** | Not applicable to the bank. Limited relevance to the source data | Personal information collected under the federal Gramm-Leach-Bliley Act is largely exempt from CCPA | Notice, access, deletion and opt-out rights would apply to a business serving Californians. No California consumer data are processed by the project. |
+| **HIPAA (US)** | Not applicable | HIPAA covers protected health information held by covered entities and their business associates. The loan data contain no health information | No health data are collected or used. If health-related fields were ever added (for example from insurers), HIPAA-equivalent safeguards and a new impact assessment would be required. |
+| **US fair-lending rules (ECOA / Regulation B, FCRA)** | Context for the US source data only | Require lenders to give reasons for adverse credit decisions and prohibit discrimination on protected bases | The four-fifths convention (approval ratio 0.80) is used as a screening test, and reason codes (SHAP top 3) show the style of explanation a lender would need to give. |
+
+## Compliance gaps still open
+1. Mapping of controls to specific articles of the Rwandan law (data protection officer).
+2. Legal view on group-specific cut-offs.
+3. Process for responding to a data subject request that refers to an explanation record.
+4. Cross-border transfer review if models or data are hosted outside Rwanda (the live demo is hosted on US cloud services with public US data only).

@@ -3,7 +3,8 @@
     python dashboard/build_dashboard_data.py
 
 Reads  data/curated/loans_curated.parquet, models/module4/credit_risk_model.joblib, reports/module4/*
-Writes dashboard/data/test_scored.parquet (score + outcome + fairness groups only - no identifiers),
+Writes dashboard/data/background.parquet (2,000 test loans, model inputs only, for LIME),
+       dashboard/data/test_scored.parquet (score + outcome + fairness groups only - no identifiers),
        dashboard/data/results.json, dashboard/data/meta.json, dashboard/data/fig2_shap_summary.png
 """
 import json
@@ -30,6 +31,7 @@ def main():
     scored = test[config.FAIR_GROUPS + [config.TARGET]].copy()
     scored["raw"] = model.raw(feature_frame(test))
     scored.to_parquet(OUT / "test_scored.parquet", index=False)
+    feature_frame(test).sample(2000, random_state=0).reset_index(drop=True).to_parquet(OUT / "background.parquet", index=False)
     (OUT / "meta.json").write_text(json.dumps({
         "cut_medium": model.cut_medium, "cut_high": model.cut_high, "n_test": int(len(scored)),
         "model": model.name}, indent=2))

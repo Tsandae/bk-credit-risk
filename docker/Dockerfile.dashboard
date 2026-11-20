@@ -1,0 +1,20 @@
+# Stakeholder dashboard (7 pages incl. SHAP/LIME explanations) on port 8501, or monitoring dashboard on 8502.
+#   docker build -f docker/Dockerfile.dashboard -t bk-credit-dashboard .
+#   docker run -p 8501:8501 bk-credit-dashboard                                    # stakeholder dashboard
+#   docker run -p 8502:8502 bk-credit-dashboard streamlit run dashboard/monitoring_app.py --server.port 8502 --server.address 0.0.0.0
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY dashboard/requirements.txt dashboard/requirements.txt
+RUN pip install --no-cache-dir -r dashboard/requirements.txt
+COPY .streamlit/ .streamlit/
+COPY dashboard/ dashboard/
+COPY src/__init__.py src/__init__.py
+COPY src/module4/ src/module4/
+COPY src/final/ src/final/
+COPY models/module4/credit_risk_model.joblib models/module4/credit_risk_model.joblib
+RUN useradd --create-home appuser && chown -R appuser:appuser /app
+USER appuser
+EXPOSE 8501 8502
+CMD ["streamlit", "run", "dashboard/app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]

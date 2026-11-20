@@ -1,0 +1,12 @@
+# Render "Blueprint" for the live API (free web service). In Render: New > Blueprint > pick this repository.
+services:
+  - type: web
+    name: bk-credit-risk-api
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile.api
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: EXPLANATION_DB
+        value: /app/logs/explanations.db

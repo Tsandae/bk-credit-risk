@@ -174,10 +174,10 @@ def run(path=None, quick=False, demo=False, use_mlflow=True):
         ver = getattr(info, "registered_model_version", None) or max(
             int(v.version) for v in client.search_model_versions(f"name='{config.REGISTERED_MODEL}'"))
         try:
-            client.set_registered_model_alias(config.REGISTERED_MODEL, "staging", ver)
+            client.set_registered_model_alias(config.REGISTERED_MODEL, config.MLFLOW_ALIAS, ver)
         except Exception as e:  # pragma: no cover
             print("alias not set:", e)
-        out["mlflow"] = {"experiment": config.EXPERIMENT, "registered_model": config.REGISTERED_MODEL, "version": str(ver), "alias": "staging"}
+        out["mlflow"] = {"experiment": config.EXPERIMENT, "registered_model": config.REGISTERED_MODEL, "version": str(ver), "alias": config.MLFLOW_ALIAS}
     if mlflow:  # evidence table of the real, timestamped runs (for the report / GitHub)
         runs = mlflow.search_runs(experiment_names=[config.EXPERIMENT])
         keep = [c for c in runs.columns if c.startswith(("run_id", "start_time", "tags.mlflow.runName", "params.", "metrics."))]

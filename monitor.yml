@@ -1,0 +1,33 @@
+name: Scheduled monitoring
+# Weekly drift, performance and fairness check. The curated data stays private: supply it as a secret download link.
+# Set the repository secret CURATED_DATA_URL (a private, time-limited link to loans_curated.parquet) to enable it.
+on:
+  schedule: [{cron: "0 6 * * 1"}]      # Mondays 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11", cache: pip}
+      - run: pip install -r requirements-pipeline.txt -r requirements-module4.txt -r requirements-final.txt -r dashboard/requirements.txt
+      - name: Fetch private curated data
+        env: {CURATED_DATA_URL: "${{ secrets.CURATED_DATA_URL }}"}
+        run: |
+          if [ -z "$CURATED_DATA_URL" ]; then echo "CURATED_DATA_URL not set: monitoring skipped"; echo "SKIP=1" >> $GITHUB_ENV; exit 0; fi
+          mkdir -p data/curated && curl -fsSL "$CURATED_DATA_URL" -o data/curated/loans_curated.parquet
+      - name: Run monitoring
+        if: env.SKIP != '1'
+        run: python -m src.final.monitor | tee monitoring_summary.txt
+      - uses: actions/upload-artifact@v4
+        if: env.SKIP != '1'
+        with:
+          name: monitoring-report
+          path: |
+            reports/final/monitoring_report.json
+            monitoring_summary.txt
+      - name: Fail the run (so the owner is emailed) when the latest window says review or retrain
+        if: env.SKIP != '1'
+        run: "! grep -q 'REVIEW / RETRAIN' monitoring_summary.txt"

@@ -1,0 +1,31 @@
+{
+  "generated": "2026-11-17T10:22:29",
+  "trigger": true,
+  "reason": "latest window breached and follows an earlier breach",
+  "forced": true,
+  "promoted": false,
+  "gate": {
+    "checks": {
+      "test AUC not worse than champion by more than 0.005": {
+        "passed": true,
+        "detail": "champion 0.687, challenger 0.691"
+      },
+      "KS at least 0.25 (Module 2 goal)": {
+        "passed": true,
+        "detail": "0.284"
+      },
+      "worst tier calibration error not worse than champion": {
+        "passed": true,
+        "detail": "champion 0.120, challenger 0.112"
+      },
+      "no group approval ratio falls by more than 0.05": {
+        "passed": true,
+        "detail": "{\"income_quartile\": -0.003, \"home_ownership\": 0.009, \"employment_length_group\": 0.005, \"region\": -0.001}"
+      }
+    },
+    "passed": true
+  },
+  "challenger_test_auc": 0.6906142845495616,
+  "quick_settings": true,
+  "outcome": "Challenger passed the gate: READY FOR HUMAN APPROVAL (run with --approve NAME)."
+}

@@ -1,0 +1,14 @@
+.git
+.venv
+__pycache__
+*.pyc
+mlruns
+mlflow.db
+data/raw
+data/staging
+data/curated
+models/challenger
+models/archive
+reports/challenger
+logs
+.env

@@ -13,6 +13,7 @@ MLFLOW_URI = f"sqlite:///{(ROOT / 'mlflow.db').as_posix()}"
 MLFLOW_ARTIFACTS = (ROOT / "mlruns").as_posix()
 EXPERIMENT = "bk-credit-risk-module4"
 REGISTERED_MODEL = "credit_risk_model"
+MLFLOW_ALIAS = "staging"          # automated retraining sets "challenger" instead (see src/final/retrain.py)
 
 TARGET = "default"
 NUMERIC = [
