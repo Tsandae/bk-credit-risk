@@ -1,11 +1,17 @@
 # Ethical AI Framework: Bank of Kigali credit-risk decision-support model
 
-Status: course project (AIA6550 Final Project). Built on US LendingClub data as a stand-in for Bank of Kigali data. Not approved for use in credit decisions.
-
-Note: the wording of the Module 1 Ethical AI Charter must be pasted into the section "Charter (Module 1)" below. The table that follows shows how each principle is turned into a control and where the evidence lives.
+Status: course project (BAN6800 Final Project). Built on US LendingClub data as a stand-in for Bank of Kigali data. Not approved for use in credit decisions.
 
 ## Charter (Module 1)
-[Paste the Module 1 Ethical AI Charter text here.]
+Ethical AI Charter 
+1. The model is going to support credit officers and does not make the final decision. 
+2. No applicant will be refused only because of a model score. 
+3. Predictions and their main reasons will be documented. 
+4. Personal data will be protected and used according to privacy rules and bank policies. 
+5. The model must be tested for fairness and checked by an independent person before it is used. 
+6. The model will not be released if significant unexplained fairness or performance problems remain. 
+7. The limitations of the LendingClub dataset will always be disclosed. 
+
 
 ## Principles, controls and evidence
 
