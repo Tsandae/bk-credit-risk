@@ -5,10 +5,8 @@ Limits & transparency. Built on the saved Module 4 model; data are US LendingClu
 
 ```bash
 pip install -r dashboard/requirements.txt
-python dashboard/build_dashboard_data.py     # only if you re-trained: refreshes dashboard/data/*
+python dashboard/build_dashboard_data.py    
 streamlit run dashboard/app.py
 python -m pytest tests/module5 -q
 ```
 
-Deploy: share.streamlit.io -> New app -> repo `Tsandae/bk-credit-risk`, branch `main`, main file path `dashboard/app.py`.
-`dashboard/data/` holds only a score, outcome and group labels for 30,835 test loans (no identifiers).
